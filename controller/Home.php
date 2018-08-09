@@ -9,6 +9,7 @@ class Controller_Home extends Lib_Controller {
 
         $this->checkRequest();
         $this->getUser();
+        $this->getFiles();
 
         $this->view->render("Home", $this->data);
     }
@@ -25,13 +26,28 @@ class Controller_Home extends Lib_Controller {
             header("Location: /");
         } else if ($action == "upload") {
             $this->upload();
+        } else if ($action == "download") {
+            $this->download($_POST["fileId"]);
         }
+    }
+
+    function download($fileId) {
+        $file = new Model_File($fileId);
+        $path = $file->path;
+
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="'.basename($path).'"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($path));
+        readfile($path);
+        exit;
     }
 
     function upload() {
 
-
-        $fileSecure = "";
         if (isset($_POST["secure"])) {
             $fileSecure = "true";
         } else {
@@ -70,6 +86,11 @@ class Controller_Home extends Lib_Controller {
 
     function getUser() {
         $user = Model_Home::getUser();
-        $this->data = $user;
+        $this->data["user"] = $user;
+    }
+
+    function getFiles() {
+        $files = Model_Home::getFiles();
+        $this->data["files"] = $files;
     }
 }

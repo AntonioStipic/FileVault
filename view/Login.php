@@ -1,7 +1,3 @@
-<?php
-echo date("m");
-?>
-
 <html>
     <head>
         <title>This is LoginPage!</title>
