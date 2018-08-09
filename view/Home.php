@@ -4,7 +4,7 @@
 
 <html>
     <head>
-        <title>This is HomePage!</title>
+        <title>FileVault - Home</title>
         <link rel="stylesheet" type="text/css" href="view/css/header.css">
     </head>
     <body>

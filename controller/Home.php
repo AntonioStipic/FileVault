@@ -82,6 +82,8 @@ class Controller_Home extends Lib_Controller {
                 echo "Sorry, there was an error uploading your file.";
             }
         }
+
+        header("Location: /");
     }
 
     function getUser() {
