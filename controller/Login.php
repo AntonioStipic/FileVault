@@ -4,6 +4,10 @@ class Controller_Login extends Lib_Controller {
     function __construct() {
         parent::__construct();
 
+        if (isset($_SESSION["user"])) {
+            header("Location: /");
+        }
+
         $this->view->render("Login", []);
 
         $this->checkRequest();

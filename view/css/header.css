@@ -1,0 +1,9 @@
+.logoutButton {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+body {
+    background-color: darkkhaki;
+}

@@ -5,15 +5,11 @@
 <html>
     <head>
         <title>This is HomePage!</title>
-        <style>
-            body {
-                background-color: yellow;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="view/css/header.css">
     </head>
     <body>
         <h2>Welcome to FileVault!</h2>
-        <form action="#" method="post">
+        <form action="#" method="post" class="logoutButton">
             <input type="hidden" name="action" value="logout">
             <input type="submit" value="Log out">
         </form>
