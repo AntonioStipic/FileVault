@@ -10,7 +10,6 @@
     <body>
         <?php include "Header.php"; ?>
         <div class="container">
-            <h2>Welcome to FileVault!</h2>
 
 
             <h3>Hello, <?php echo $data["user"]["username"]; ?>!</h3>

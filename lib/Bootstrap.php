@@ -7,6 +7,8 @@ class Lib_Bootstrap {
 
         if (isset($_GET["url"])) {
             $url = ucfirst($_GET["url"]);
+        } else {
+            header("Location: /home");
         }
         $url = explode("/", $url);
 
