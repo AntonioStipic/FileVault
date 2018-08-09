@@ -22,5 +22,7 @@
             <input type="submit" value="Login" name="loginButton">
         </form>
 
+        <a href="/register"><input type="submit" value="Register"></a>
+
     </body>
 </html>

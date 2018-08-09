@@ -4,7 +4,6 @@
 
 class DB_Connection {
 
-
     function __construct() {
         $this->servername = "localhost";
         $this->username = "root";

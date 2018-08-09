@@ -17,7 +17,12 @@ class Lib_Bootstrap {
                 require $controllerFile;
             } else {
 
-                if (strtolower($url[0]) != "login") {
+                if (strtolower($url[0]) == "register") {
+                    require "controller/Register.php";
+
+                    $controller = new Controller_Register();
+                    return false;
+                } else if (strtolower($url[0]) != "login") {
                     header("Location: /login");
                 } else {
                     require "controller/Login.php";
