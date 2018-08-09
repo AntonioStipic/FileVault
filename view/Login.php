@@ -1,5 +1,5 @@
 <?php
-
+echo date("m");
 ?>
 
 <html>

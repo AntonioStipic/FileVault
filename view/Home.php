@@ -18,5 +18,11 @@
 
 
         <p>My files:</p>
+        <form action="#" method="post" class="uploadButton" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="upload">
+            <input type="file" name="fileToUpload" id="fileToUpload"><br>
+            Public: <input type="checkbox" name="secure"><br>
+            <input type="submit" value="Upload file">
+        </form>
     </body>
 </html>
