@@ -15,7 +15,7 @@
 <h2>Welcome to FileVault!</h2>
 <p>Register:</p>
 
-<form action="#" method="POST">
+<form method="POST">
     <input type="hidden" name="action" value="register">
     E-mail <input type="text" name="email"><br>
     Username: <input type="text" name="username"><br>

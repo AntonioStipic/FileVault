@@ -11,7 +11,7 @@
         <h2>Welcome to FileVault!</h2>
         <p>Login:</p>
 
-        <form action="#" method="POST">
+        <form method="POST">
             <input type="hidden" name="action" value="login">
             Username: <input type="text" name="username"><br>
             Password: <input type="password" name="password"><br>
