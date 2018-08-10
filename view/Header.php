@@ -1,8 +1,7 @@
 <div class="header">
     <a href="/"><img src="view/asset/logo.png" class="logoImage"></a>
 
-    <div class="headerButton width5vw">
-    </div>
+    <div class="headerButton width5vw"></div>
 
     <div class="headerButton" <?php echo (!isset($_SESSION["user"]))?"hidden":""; ?>>
         <form action="/home" method="post" class="headerButtonChild">

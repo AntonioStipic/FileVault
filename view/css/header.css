@@ -1,6 +1,7 @@
 .logoImage {
-    width: 8.5vw;
+    /*width: 8.5vw;*/
     margin-top: 0.5vw;
+    height: 60px;
 }
 
 .header {
@@ -9,7 +10,8 @@
     left: 0;
     top: 0;
     padding-left: 5vw;
-    height: 5vw;
+    height: 70px;
+    font-size: 1.2em;
 }
 
 .logoutButton {
@@ -33,7 +35,7 @@ body {
 .headerButton {
     float: right;
     width: 7vw;
-    border-left: 1px solid #0066A2;
+    /*border-left: 1px solid #0066A2;*/
     height: 100%;
     margin: 0;
     text-align: center;
@@ -42,6 +44,7 @@ body {
     -ms-transition: background-color 100ms linear;
     transition: background-color 100ms linear;
     cursor: pointer;
+    min-width: 50px;
 }
 
 .headerButton:hover {

@@ -1,0 +1,80 @@
+.fileList {
+    width: 70vw;
+    border: 1px solid #EAE7E7;
+    margin-left: 15vw;
+}
+
+
+.asset {
+    cursor: pointer;
+    height: 50px;
+
+    -webkit-transition: background-color 150ms linear;
+    -ms-transition: background-color 150ms linear;
+    transition: background-color 150ms linear;
+}
+
+.asset:hover {
+    background-color: #BFBABA;
+    -webkit-transition: background-color 150ms linear;
+    -ms-transition: background-color 150ms linear;
+    transition: background-color 150ms linear;
+}
+
+.fileListHeader {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.fileListHeaderName {
+    width: 50%;
+    padding-left: 10px;
+}
+
+.fileListHeaderOwner {
+    width: 25%;
+}
+
+.fileListHeaderUploadTime {
+    width: 25%;
+}
+
+.homeHeader {
+    background-color: #EAE7E7;
+    width: 100%;
+    left: 0;
+    top: 0;
+    padding-left: 5vw;
+    height: 45px;
+}
+
+/**/
+
+.homeHeaderButton {
+    float: right;
+    width: 7vw;
+    /*border-left: 1px solid #0066A2;*/
+    height: 100%;
+    margin: 0;
+    text-align: center;
+    color: black;
+    -webkit-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+    cursor: pointer;
+    min-width: 50px;
+}
+
+.homeHeaderButton:hover {
+    background-color: #998E8E;
+    color: #EAE7E7;
+    -webkit-transition: background-color 150ms linear;
+    -ms-transition: background-color 150ms linear;
+    transition: background-color 150ms linear;
+}
+
+.width5vw {
+    width: 5vw;
+    margin-left: 2vw;
+}
