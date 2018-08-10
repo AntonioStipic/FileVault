@@ -28,7 +28,7 @@
 }
 
 .fileListHeaderName {
-    width: 50%;
+    width: 35%;
     padding-left: 10px;
 }
 
@@ -38,6 +38,10 @@
 
 .fileListHeaderUploadTime {
     width: 25%;
+}
+
+.fileListHeaderSize {
+    width: 15%;
 }
 
 .homeHeader {
@@ -102,7 +106,7 @@
     margin: 8% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 50%; /* Could be more or less, depending on screen size */
+    width: 35%; /* Could be more or less, depending on screen size */
 
 }
 
@@ -181,4 +185,37 @@
 
 hr {
     color: #EAE7E7;
+}
+
+
+
+
+
+
+
+.custom-menu {
+    display: none;
+    z-index: 1000;
+    position: absolute;
+    overflow: hidden;
+    border: 1px solid #CCC;
+    white-space: nowrap;
+    font-family: sans-serif;
+    background: #FFF;
+    color: #333;
+    border-radius: 5px;
+    padding: 0;
+}
+
+/* Each of the items in the list */
+.custom-menu li {
+    padding: 8px 12px;
+    cursor: pointer;
+    list-style-type: none;
+    transition: all .3s ease;
+    user-select: none;
+}
+
+.custom-menu li:hover {
+    background-color: #DEF;
 }

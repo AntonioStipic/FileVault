@@ -13,12 +13,14 @@ btn.onclick = function() {
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
+    clearFile();
     modal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
+        clearFile();
         modal.style.display = "none";
     }
 }
@@ -40,13 +42,77 @@ $("#fileToUpload").on("change", function () {
         document.getElementById("notSelectedFileText").style.display = "none";
 
     } else {
-        document.getElementById("modalUploadButton").style.display = "none";
-
-        document.getElementById("selectedFileText").style.display = "none";
-        document.getElementById("notSelectedFileText").style.display = "block";
+        clearFile();
     }
 });
 
 $("#modalUploadButton").click(function() {
     $("#finalSubmitFile").trigger("click");
 });
+
+function clearFile() {
+    document.getElementById("modalUploadButton").style.display = "none";
+
+    document.getElementById("selectedFileText").style.display = "none";
+    document.getElementById("notSelectedFileText").style.display = "block";
+}
+
+
+
+
+var currentlyRightClicked = "";
+
+$(".asset").on("contextmenu", function (event) {
+
+    currentlyRightClicked = $(this).find('.id').html();
+    // alert($( parent + "  > .id" ).html());
+
+    // Avoid the real one
+    event.preventDefault();
+
+    // Show contextmenu
+    $(".custom-menu").finish().toggle(100).
+
+    // In the right position (the mouse)
+    css({
+        top: event.pageY - 17 + "px",
+        left: event.pageX + 15 + "px"
+    });
+});
+
+
+// If the document is clicked somewhere
+$(document).on("mousedown", function (e) {
+
+    // If the clicked element is not the menu
+    if (!$(e.target).parents(".custom-menu").length > 0) {
+
+        // Hide it
+        $(".custom-menu").hide(100);
+    }
+});
+
+
+// If the menu element is clicked
+$(".custom-menu li").click(function(){
+
+    // This is the triggered action name
+    switch($(this).attr("data-action")) {
+
+        case "download": downloadFile(); break;
+        // A case for each action. Your actions here
+        case "first": alert("first"); break;
+        case "second": alert("second"); break;
+        case "third": alert("third"); break;
+    }
+
+    // Hide it AFTER the action was triggered
+    $(".custom-menu").hide(100);
+});
+
+function downloadFile() {
+
+    document.getElementById("downloadFileId").value = currentlyRightClicked;
+    $("#downloadFileSubmit").trigger("click");
+
+}

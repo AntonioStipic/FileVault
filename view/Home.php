@@ -15,6 +15,9 @@
     <body>
         <?php include "Header.php"; ?>
         <div class="homeHeader">
+            Hello, <?php echo $data["user"]["username"]; ?>!
+
+
             <div class="homeHeaderButton width5vw"></div>
             <div class="homeHeaderButton">
                 <button class="nakedButton" id="uploadButton">
@@ -25,7 +28,7 @@
         <div class="container">
 
 
-            <h3>Hello, <?php echo $data["user"]["username"]; ?>!</h3>
+
 
             <p>My files:</p>
 
@@ -37,6 +40,7 @@
                         <td class="fileListHeaderName">Name</td>
                         <td class="fileListHeaderOwner">| Owner</td>
                         <td class="fileListHeaderUploadTime">| Upload time</td>
+                        <td class="fileListHeaderSize">| Size</td>
                     </tr>
                 </table>
                 <hr>
@@ -57,10 +61,12 @@
 
                     for ($i = 0; $i < count($data["files"]); $i++) {
                         $userInfo = new Model_UserInfo($data["files"][$i]["owner"]);
-                        echo '<tr class="asset">
+                        echo '<tr class="asset right-click">
+                        <td style="display: none" class="id">' . $data["files"][$i]["uuid"] . '</td>
                         <td class="fileListHeaderName"><i class="fa fa-file"></i> ' . $data["files"][$i]["title"] . $data["files"][$i]["extension"] . '</td>
                         <td class="fileListHeaderOwner">| ' . $userInfo->username . '</td>
                         <td class="fileListHeaderUploadTime">| ' . $data["files"][$i]["upload_time"] . '</td>
+                        <td class="fileListHeaderSize">| ' . Model_File::formatSizeUnits(filesize($data["files"][$i]["path"])) . '</td>
                     </tr>';
                     }
 
@@ -82,27 +88,43 @@
                 </form>
             </div>
 
-            <div id="uploadModal" class="modal">
 
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h2>Upload file:</h2>
-                    <div class="modalContainer">
-                        <div class="dropArea" id="dropArea">
-<!--                            <input type="file" name="fileToUpload" id="fileToUpload" style="display: none">-->
-                            <p class="hidden">:)</p>
-                            <i class="fa fa-arrow-circle-down bigIcon"></i>
-                            <p id="notSelectedFileText"><b>Choose a file</b> or drag it here</p>
-                            <p id="selectedFileText"><b>Selected:</b> <label id="filePath">Hej</label></p>
-                        </div><br>
-                        <button class="blueButton" id="modalUploadButton">Upload</button>
-                    </div>
-                </div>
-
-            </div>
 
 
         </div>
+
+        <ul class="custom-menu">
+            <li data-action="download">Download</li>
+            <li data-action="second">Second thing</li>
+            <li data-action="third">Third thing</li>
+        </ul>
+
+        <div id="uploadModal" class="modal">
+
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Upload file:</h2>
+                <div class="modalContainer">
+                    <div class="dropArea" id="dropArea">
+                        <!--                            <input type="file" name="fileToUpload" id="fileToUpload" style="display: none">-->
+                        <p class="hidden">:)</p>
+                        <i class="fa fa-arrow-circle-down bigIcon"></i>
+                        <p id="notSelectedFileText"><b>Choose a file</b> or drag it here</p>
+                        <p id="selectedFileText"><b>Selected:</b> <label id="filePath">Hej</label></p>
+                    </div><br>
+                    <button class="blueButton" id="modalUploadButton">Upload</button>
+                </div>
+            </div>
+
+        </div>
+
+        <form method="POST" style="display: none">
+            <input type="hidden" name="action" value="download">
+            <input type="hidden" name="fileId" id="downloadFileId">
+            <input type="submit" value="Download" name="download" id="downloadFileSubmit">
+        </form>
+
+
         <script src="/view/js/modalLogic.js"></script>
     </body>
 </html>
