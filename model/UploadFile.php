@@ -17,8 +17,7 @@ class Model_UploadFile {
         $owner = $_SESSION["user"];
         $extension = substr($this->fileName, strpos($this->fileName, "."));
 
-        $tmpString = substr($this->fileName, 0, strlen($this->fileName) - strlen($extension));
-        $name = $conn->prepare($tmpString);
+        $name = substr($this->fileName, 0, strlen($this->fileName) - strlen($extension));
         $datetime = date("Y-m-d H:i:s");
 
 
