@@ -95,7 +95,7 @@
 
         <ul class="custom-menu">
             <li data-action="download"><i class="fa fa-download"></i> Download</li>
-            <li data-action="second">Rename</li>
+            <li data-action="second"><i class="fa fa-pencil"></i> Rename</li>
             <hr>
             <li data-action="delete" class="red"><i class="fa fa-trash"></i> Delete</li>
 

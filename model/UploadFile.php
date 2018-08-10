@@ -16,7 +16,9 @@ class Model_UploadFile {
         $uuid = substr(md5(uniqid(mt_rand(), true)), 0, 8);
         $owner = $_SESSION["user"];
         $extension = substr($this->fileName, strpos($this->fileName, "."));
-        $name = substr($this->fileName, 0, strlen($this->fileName) - strlen($extension));
+
+        $tmpString = substr($this->fileName, 0, strlen($this->fileName) - strlen($extension));
+        $name = $conn->prepare($tmpString);
         $datetime = date("Y-m-d H:i:s");
 
 

@@ -14,6 +14,10 @@ class DB_Connection {
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
+    public function prepare($string) {
+        return $this->prepare($string);
+    }
+
     public function __get($property) {
         if (property_exists($this, $property)) {
             return $this->$property;
