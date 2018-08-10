@@ -165,6 +165,12 @@
 
 }
 
+.redButton {
+    background-color: #c9302c;
+    cursor: pointer;
+}
+
+
 #modalUploadButton {
     display: none;
 
@@ -205,6 +211,7 @@ hr {
     color: #333;
     border-radius: 5px;
     padding: 0;
+    width: 150px;
 }
 
 /* Each of the items in the list */
@@ -218,4 +225,12 @@ hr {
 
 .custom-menu li:hover {
     background-color: #DEF;
+}
+
+.red {
+    color: red;
+}
+
+.pointer {
+    cursor: pointer;
 }

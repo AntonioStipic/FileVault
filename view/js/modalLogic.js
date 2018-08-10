@@ -1,27 +1,35 @@
-let modal = document.getElementById('uploadModal');
+let uploadModal = document.getElementById('uploadModal');
+let deleteModal = document.getElementById('deleteModal');
 
 // Get the button that opens the modal
 let btn = document.getElementById("uploadButton");
 
 // Get the <span> element that closes the modal
-let span = document.getElementsByClassName("close")[0];
+let uploadSpan = document.getElementsByClassName("close")[0];
+let deleteSpan = document.getElementsByClassName("close")[1];
 
 // When the user clicks on the button, open the modal
 btn.onclick = function() {
-    modal.style.display = "block";
+    uploadModal.style.display = "block";
 }
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+uploadSpan.onclick = function() {
     clearFile();
-    modal.style.display = "none";
+    uploadModal.style.display = "none";
+}
+
+deleteSpan.onclick = function() {
+    deleteModal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == modal) {
+    if (event.target == uploadModal) {
         clearFile();
-        modal.style.display = "none";
+        uploadModal.style.display = "none";
+    } else if (event.target == deleteModal) {
+        deleteModal.style.display = "none";
     }
 }
 
@@ -101,7 +109,7 @@ $(".custom-menu li").click(function(){
 
         case "download": downloadFile(); break;
         // A case for each action. Your actions here
-        case "first": alert("first"); break;
+        case "delete": deleteFile(); break;
         case "second": alert("second"); break;
         case "third": alert("third"); break;
     }
@@ -115,4 +123,16 @@ function downloadFile() {
     document.getElementById("downloadFileId").value = currentlyRightClicked;
     $("#downloadFileSubmit").trigger("click");
 
+}
+
+function deleteFile() {
+    document.getElementById("downloadFileId").value = currentlyRightClicked;
+    // $("#downloadFileSubmit").trigger("click");
+
+    deleteModal.style.display = "block";
+}
+
+function submitDeleteFile() {
+    document.getElementById("deleteFileId").value = currentlyRightClicked;
+    $("#deleteFileSubmit").trigger("click");
 }

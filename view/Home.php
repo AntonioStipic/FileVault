@@ -94,13 +94,16 @@
         </div>
 
         <ul class="custom-menu">
-            <li data-action="download">Download</li>
-            <li data-action="second">Second thing</li>
+            <li data-action="download"><i class="fa fa-download"></i> Download</li>
+            <li data-action="second">Rename</li>
+            <hr>
+            <li data-action="delete" class="red"><i class="fa fa-trash"></i> Delete</li>
+
             <li data-action="third">Third thing</li>
         </ul>
 
+        <!-- UPLOAD MODAL -->
         <div id="uploadModal" class="modal">
-
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <h2>Upload file:</h2>
@@ -115,13 +118,32 @@
                     <button class="blueButton" id="modalUploadButton">Upload</button>
                 </div>
             </div>
-
         </div>
 
+        <!-- DELETE MODAL -->
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="modalContainer">
+                    <h3>Are you sure you want to delete this file?</h3>
+                    <button class="blueButton redButton" onclick="submitDeleteFile();">Yes</button>
+                    <button class="blueButton pointer" onclick="deleteModal.style.display = 'none';">No</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Functions -->
         <form method="POST" style="display: none">
             <input type="hidden" name="action" value="download">
             <input type="hidden" name="fileId" id="downloadFileId">
             <input type="submit" value="Download" name="download" id="downloadFileSubmit">
+        </form>
+
+        <form method="POST" style="display: none">
+            <input type="hidden" name="action" value="delete">
+            <input type="hidden" name="fileId" id="deleteFileId">
+            <input type="submit" value="Delete" name="delete" id="deleteFileSubmit">
         </form>
 
 

@@ -24,6 +24,23 @@ class Model_File {
         $this->path = $file["path"];
     }
 
+    function deleteFile($fileId) {
+
+        $success = false;
+        $db = new DB_Connection();
+        $conn = $db->conn;
+
+        $stmt = $conn->prepare("DELETE FROM assets WHERE uuid='$fileId'");
+
+        if ($stmt->execute()) {
+           $success = true;
+        }
+
+        $conn = null;
+
+        return $success;
+    }
+
     public function __get($property) {
         if (property_exists($this, $property)) {
             return $this->$property;

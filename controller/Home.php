@@ -28,6 +28,8 @@ class Controller_Home extends Lib_Controller {
             $this->upload();
         } else if ($action == "download") {
             $this->download($_POST["fileId"]);
+        } else if ($action == "delete") {
+            $this->deleteFile($_POST["fileId"]);
         }
     }
 
@@ -84,6 +86,23 @@ class Controller_Home extends Lib_Controller {
         }
 
         header("Location: /");
+    }
+
+    function deleteFile($fileId) {
+        $file = new Model_File($fileId);
+
+//        unlink
+
+        $path = $file->path;
+        if (unlink($path)) {
+
+
+            if ($file->deleteFile($fileId)) {
+                header("Location: /");
+            } else {
+                header("Location: /error");
+            }
+        }
     }
 
     function getUser() {
