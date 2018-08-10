@@ -29,9 +29,24 @@ $("#dropArea").click(function() {
 });
 
 $("#fileToUpload").on("change", function () {
-    alert("Selected file!");
+    // alert("Selected file!");
+
+    if (document.getElementById("fileToUpload").value != "") {
+        document.getElementById("modalUploadButton").style.display = "block";
+
+        document.getElementById("filePath").innerHTML = document.getElementById("fileToUpload").files[0].name;
+
+        document.getElementById("selectedFileText").style.display = "block";
+        document.getElementById("notSelectedFileText").style.display = "none";
+
+    } else {
+        document.getElementById("modalUploadButton").style.display = "none";
+
+        document.getElementById("selectedFileText").style.display = "none";
+        document.getElementById("notSelectedFileText").style.display = "block";
+    }
 });
 
-function fileSelected() {
-    alert("File changed!")
-}
+$("#modalUploadButton").click(function() {
+    $("#finalSubmitFile").trigger("click");
+});

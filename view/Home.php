@@ -74,15 +74,13 @@
                 
 
                 <br><br>
-                <form method="post" class="uploadButton" enctype="multipart/form-data">
+                <form method="post" class="uploadButton" enctype="multipart/form-data" style="display: none">
                     <input type="hidden" name="action" value="upload">
                     <input type="file" name="fileToUpload" id="fileToUpload"><br>
                     Public: <input type="checkbox" name="secure"><br>
-                    <input type="submit" value="Upload file">
+                    <input type="submit" value="Upload file" id="finalSubmitFile">
                 </form>
             </div>
-
-            <button id="uploadButton">Open Modal</button>
 
             <div id="uploadModal" class="modal">
 
@@ -94,9 +92,10 @@
 <!--                            <input type="file" name="fileToUpload" id="fileToUpload" style="display: none">-->
                             <p class="hidden">:)</p>
                             <i class="fa fa-arrow-circle-down bigIcon"></i>
-                            <p><b>Choose a file</b> or drag it here</p>
+                            <p id="notSelectedFileText"><b>Choose a file</b> or drag it here</p>
+                            <p id="selectedFileText"><b>Selected:</b> <label id="filePath">Hej</label></p>
                         </div><br>
-                        <button class="blueButton">Upload</button>
+                        <button class="blueButton" id="modalUploadButton">Upload</button>
                     </div>
                 </div>
 

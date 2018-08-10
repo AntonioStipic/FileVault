@@ -157,6 +157,22 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+
+
+}
+
+#modalUploadButton {
+    display: none;
+
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+
+    cursor: pointer;
+}
+
+#selectedFileText {
+    display: none;
 }
 
 .slightMargin {
