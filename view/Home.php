@@ -9,6 +9,7 @@
         <link rel="stylesheet" type="text/css" href="view/css/fileList.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     </head>
     <body>
@@ -31,14 +32,14 @@
 
             <div class="fileList">
 
-                <table class="fileListHeader">
+                <table class="fileListHeader slightMargin">
                     <tr>
                         <td class="fileListHeaderName">Name</td>
                         <td class="fileListHeaderOwner">| Owner</td>
                         <td class="fileListHeaderUploadTime">| Upload time</td>
                     </tr>
                 </table>
-
+                <hr>
                 <table class="fileListHeader">
                     <!-- <tr class="asset">
                         <td class="fileListHeaderName"><i class="fa fa-file"></i> Test.txt</td>
@@ -89,11 +90,13 @@
                     <span class="close">&times;</span>
                     <h2>Upload file:</h2>
                     <div class="modalContainer">
-                        <div class="dropArea">
+                        <div class="dropArea" id="dropArea">
+<!--                            <input type="file" name="fileToUpload" id="fileToUpload" style="display: none">-->
                             <p class="hidden">:)</p>
                             <i class="fa fa-arrow-circle-down bigIcon"></i>
-                            <p>Some text</p>
-                        </div>
+                            <p><b>Choose a file</b> or drag it here</p>
+                        </div><br>
+                        <button class="blueButton">Upload</button>
                     </div>
                 </div>
 

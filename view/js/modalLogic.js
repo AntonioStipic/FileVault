@@ -22,3 +22,16 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+$("#dropArea").click(function() {
+    document.getElementById("fileToUpload").value = "";
+    $("#fileToUpload").trigger("click");
+});
+
+$("#fileToUpload").on("change", function () {
+    alert("Selected file!");
+});
+
+function fileSelected() {
+    alert("File changed!")
+}
