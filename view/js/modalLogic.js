@@ -143,15 +143,21 @@ function downloadFile() {
 }
 
 function deleteFile() {
-    // document.getElementById("downloadFileId").value = currentlyRightClicked;
-    // $("#downloadFileSubmit").trigger("click");
-
     deleteModal.style.display = "block";
 }
 
 function submitDeleteFile() {
-    document.getElementById("deleteFileId").value = currentlyRightClicked;
-    $("#deleteFileSubmit").trigger("click");
+    let data = {"action": "delete", "fileId": currentlyRightClicked};
+
+    $.post("/action",data,
+        function(data){
+            data = JSON.parse(data);
+            if (data["success"] == true) {
+                deleteModal.style.display = "none";
+                location.reload();
+            }
+        });
+
 }
 
 function renameFileModal() {
@@ -164,15 +170,14 @@ function renameFileModal() {
 function submitRenameFile() {
     let newName = document.getElementById("renameModalName").value;
 
-    document.getElementById("renameFileId").value = currentlyRightClicked;
-    document.getElementById("renameFileName").value = newName;
+    let data = {"action": "rename", "fileId": currentlyRightClicked, "fileName": newName};
 
-    $("#renameFileSubmit").trigger("click");
-
-    // document.getElementById("renameModalName").value = "";
-}
-
-function sortBy(what) {
-    document.getElementById("sortBy").value = what;
-    $("#sortSubmit").trigger("click");
+    $.post("/action",data,
+        function(data){
+            data = JSON.parse(data);
+            if (data["success"] == true) {
+                renameModal.style.display = "none";
+                location.reload();
+            }
+        });
 }

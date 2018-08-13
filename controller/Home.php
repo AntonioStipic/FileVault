@@ -1,5 +1,6 @@
 <?php
 
+
 class Controller_Home extends Lib_Controller {
 
     public $data;
@@ -14,7 +15,7 @@ class Controller_Home extends Lib_Controller {
         $this->view->render("Home", $this->data);
     }
 
-    function checkRequest() {;
+    function checkRequest() {
         if (isset($_POST["action"]) && in_array($_POST["action"], $this->actions)) {
             $this->doAction($_POST["action"]);
         }
@@ -28,19 +29,12 @@ class Controller_Home extends Lib_Controller {
             $this->upload();
         } else if ($action == "download") {
             $this->download($_POST["fileId"]);
-        } else if ($action == "delete") {
-            $this->deleteFile($_POST["fileId"]);
-        } else if ($action == "rename") {
-            $this->renameFile($_POST["fileId"], $_POST["fileName"]);
-        } else if ($action == "sort") {
-            $this->sort($_POST["sortBy"]);
         }
     }
 
     function download($fileId) {
         $file = new Model_File($fileId);
         $path = $file->path;
-
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
         header('Content-Disposition: attachment; filename="'.basename($path).'"');
@@ -153,9 +147,9 @@ class Controller_Home extends Lib_Controller {
 
 
             if ($file->deleteFile($fileId)) {
-                header("Location: /");
+                echo "success";
             } else {
-                header("Location: /error");
+                echo "fail";
             }
         }
     }
@@ -163,11 +157,11 @@ class Controller_Home extends Lib_Controller {
     function renameFile($fileId, $fileName) {
         $file = new Model_File($fileId);
 
-        if ($file->renameFile($fileName)) {
+        /* if ($file->renameFile($fileName)) {
             header("Location: /");
         } else {
             header("Location: /error");
-        }
+        } */
     }
 
     function sort($sortBy) {

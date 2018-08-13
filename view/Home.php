@@ -199,26 +199,6 @@
             <input type="submit" value="Download" name="download" id="downloadFileSubmit">
         </form>
 
-        <form method="POST" style="display: none">
-            <input type="hidden" name="action" value="delete">
-            <input type="hidden" name="fileId" id="deleteFileId">
-            <input type="submit" value="Delete" name="delete" id="deleteFileSubmit">
-        </form>
-
-        <form method="POST" style="display: none">
-            <input type="hidden" name="action" value="rename">
-            <input type="hidden" name="fileId" id="renameFileId">
-            <input type="hidden" name="fileName" id="renameFileName">
-            <input type="submit" value="Rename" name="delete" id="renameFileSubmit">
-        </form>
-
-        <form method="POST" style="display: none">
-            <input type="hidden" name="action" value="sort">
-            <input type="hidden" name="sortBy" id="sortBy">
-            <input type="submit" value="Sort" name="sort" id="sortSubmit">
-        </form>
-
-
         <script src="/view/js/modalLogic.js"></script>
     </body>
 </html>
