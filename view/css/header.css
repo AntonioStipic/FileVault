@@ -76,3 +76,14 @@ body {
 .width5vw {
     width: calc(5vw - 1px);
 }
+
+.notClickable {
+    float: right;
+    width: 7vw;
+    /*border-left: 1px solid #0066A2;*/
+    height: 100%;
+    margin: 0;
+    text-align: center;
+    color: #002E4A;
+    min-width: 50px;
+}

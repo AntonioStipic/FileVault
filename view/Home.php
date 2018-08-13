@@ -18,7 +18,7 @@
             Hello, <?php echo $data["user"]["username"]; ?>!
 
 
-            <div class="homeHeaderButton width5vw"></div>
+            <div class="notClickable width5vw"></div>
             <div class="homeHeaderButton">
                 <button class="nakedButton" id="uploadButton">
                     <i class="fa fa-upload"></i> Upload

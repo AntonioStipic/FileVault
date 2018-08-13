@@ -64,7 +64,42 @@ class Controller_Home extends Lib_Controller {
             mkdir($target_dir, 0777, true);
         }
 
-        $target_file = $target_dir . addslashes(basename($_FILES["fileToUpload"]["name"]));
+        $fileName = addslashes(basename($_FILES["fileToUpload"]["name"]));
+        $target_file = $target_dir . $fileNam;
+
+
+
+
+
+
+
+        $extension = substr($fileName, strpos($fileName, "."));
+
+        $name = substr($fileName, 0, strlen($fileName) - strlen($extension));
+
+        if ($name == "") {
+            $name = $extension;
+            $extension = "";
+        }
+
+        $counter = 0;
+        $checkFile = "";
+        $newPath = $target_dir;
+        while (file_exists($target_dir . $name . $checkFile . $extension)) {
+            echo "Nope, file exists";
+            $counter += 1;
+            $checkFile = " (" . $counter . ")";
+
+        }
+
+        $name = $name . $checkFile;
+        $newPath = $target_dir . $name . $extension;
+
+
+
+
+
+
         $uploadOk = 1;
         if ($_FILES["fileToUpload"]["size"] > 50000000) {
             echo "<script>console.log('file too big')</script>";
@@ -76,16 +111,16 @@ class Controller_Home extends Lib_Controller {
         } else {
             try {
                 try {
-                    move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+                    move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $newPath);
                 } catch (Exception $err) {
                     echo 'Caught exception: ',  $err->getMessage(), "\n";
                     echo "<script>console.log('" . $err->getMessage() . "')</script>";
                 }
 
-                $fileName = $_FILES["fileToUpload"]["name"];
+                $fileName = $name . $extension;
 
                 $fileUpload = new Model_UploadFile($fileName, $fileSecure);
-                $fileUpload->uploadToDatabase($target_file);
+                $fileUpload->uploadToDatabase($newPath);
             } catch (Exception $e) {
                 echo 'Caught exception: ',  $e->getMessage(), "\n";
                 echo "<script>console.log('" . $e->getMessage() . "')</script>";
