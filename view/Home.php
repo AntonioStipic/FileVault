@@ -17,7 +17,6 @@
         <div class="homeHeader">
             Hello, <?php echo $data["user"]["username"]; ?>!
 
-
             <div class="notClickable width5vw"></div>
             <div class="homeHeaderButton">
                 <button class="nakedButton" id="uploadButton">
@@ -69,9 +68,9 @@
 //                    $data["files"]->asort();
 
 //                    print_r($data["files"]);
-                    for ($i = 0; $i < count($data["files"]); $i++) {
+                    /* for ($i = 0; $i < count($data["files"]); $i++) {
                         $data["files"][$i] = (object) $data["files"][$i];
-                    }
+                    } */
 
 //                    $data["files"][0] = (object) $data["files"][0];
 //                    echo gettype($object);
@@ -83,39 +82,29 @@
                     {
 
                     } */
-                    if (!isset($data["sortBy"])) {
+                    /* if (!isset($data["sortBy"])) {
                         $sortBy = "title";
                     } else {
                         $sortBy = $data["sortBy"];
                     }
                     usort($data["files"], function ($a, $b) use ($sortBy) {
                         return strcasecmp($a->{$sortBy}, $b->{$sortBy});
-                    });
-
-
-                    /* usort($data["files"], function ($a, $b) use ($sortBy) {
-                        if ($a[$sortBy] < $b[$sortBy]) {
-                            return -1;
-                        } else if ($a[$sortBy] > $b[$sortBy]) {
-                            return 1;
-                        } else {
-                            return 0;
-                        }
                     }); */
 
 
                     for ($i = 0; $i < count($data["files"]); $i++) {
-                        $userInfo = new Model_UserInfo($data["files"][$i]->owner);
+                        $userInfo = new Model_UserInfo($data["files"][$i]["owner"]);
                         echo '<tr class="asset right-click">
-                        <td style="display: none" class="id">' . $data["files"][$i]->uuid . '</td>
-                        <td class="fileListHeaderName"><i class="fa fa-file"></i> ' . $data["files"][$i]->title . $data["files"][$i]->extension . '</td>
+                        <td style="display: none" class="id">' . $data["files"][$i]["uuid"] . '</td>
+                        <td class="fileListHeaderName"><i class="fa fa-file"></i> ' . $data["files"][$i]["title"] . $data["files"][$i]["extension"] . '</td>
                         <td class="fileListHeaderOwner">| ' . $userInfo->username . '</td>
-                        <td class="fileListHeaderUploadTime">| ' . $data["files"][$i]->upload_time . '</td>
-                        <td class="fileListHeaderSize">| ' . Model_File::formatSizeUnits($data["files"][$i]->size) . '</td>
+                        <td class="fileListHeaderUploadTime">| ' . $data["files"][$i]["upload_time"] . '</td>
+                        <td class="fileListHeaderSize">| ' . Model_File::formatSizeUnits($data["files"][$i]["size"]) . '</td>
                     </tr>';
                     }
 //                    Model_File::formatSizeUnits(filesize($data["files"][$i]->path))
-
+//                    date_format(strtotime($data["files"][$i]->upload_time), 'd/m/Y H:i:s')
+//
 
                     /* for ($i = 0; $i < count($data["files"]); $i++) {
                         $userInfo = new Model_UserInfo($data["files"][$i]["owner"]);
@@ -157,7 +146,7 @@
             <hr>
             <li data-action="delete" class="red"><i class="fa fa-trash"></i> Delete</li>
 
-            <li data-action="third">Third thing</li>
+<!--            <li data-action="third">Third thing</li>-->
         </ul>
 
         <!-- UPLOAD MODAL -->

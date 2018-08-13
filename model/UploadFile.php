@@ -56,10 +56,11 @@ class Model_UploadFile
 
         $datetime = date("Y-m-d H:i:s");
 
+        $size = filesize($path);
 
-        $stmt = $conn->prepare("INSERT INTO assets VALUES (?, ?, ?, ?, 0, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO assets VALUES (?, ?, ?, ?, 0, ?, ?, ?, ?)");
 
-        if ($stmt->execute([$uuid, $owner, $name, $extension, $this->fileSecure, $path, $datetime])) {
+        if ($stmt->execute([$uuid, $owner, $name, $extension, $this->fileSecure, $path, $datetime, $size])) {
             echo "Successfully uploaded!";
         } else {
             echo "Nope";

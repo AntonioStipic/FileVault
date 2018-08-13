@@ -3,6 +3,7 @@
 class Controller_Home extends Lib_Controller {
 
     public $data;
+    protected $actions = ["logout", "upload", "download", "delete", "rename", "sort"];
 
     function __construct() {
         parent::__construct();
@@ -10,12 +11,11 @@ class Controller_Home extends Lib_Controller {
         $this->checkRequest();
         $this->getUser();
         $this->getFiles();
-
         $this->view->render("Home", $this->data);
     }
 
     function checkRequest() {;
-        if (isset($_POST["action"])) {
+        if (isset($_POST["action"]) && in_array($_POST["action"], $this->actions)) {
             $this->doAction($_POST["action"]);
         }
     }
@@ -67,7 +67,7 @@ class Controller_Home extends Lib_Controller {
         }
 
         $fileName = basename($_FILES["fileToUpload"]["name"]);
-        $target_file = $target_dir . $fileNam;
+        $target_file = $target_dir . $fileName;
 
 
 
@@ -114,7 +114,7 @@ class Controller_Home extends Lib_Controller {
             try {
                 try {
                     move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $newPath);
-                } catch (Exception $err) {
+                } catch (\Exception $err) {
                     echo 'Caught exception: ',  $err->getMessage(), "\n";
                     echo "<script>console.log('" . $err->getMessage() . "')</script>";
                 }
@@ -171,7 +171,7 @@ class Controller_Home extends Lib_Controller {
     }
 
     function sort($sortBy) {
-        $this->data["sortBy"] = $sortBy;
+//        $this->data["sortBy"] = $sortBy;
 //        $this->view->render("Home", $this->data);
 
     }
@@ -182,7 +182,15 @@ class Controller_Home extends Lib_Controller {
     }
 
     function getFiles() {
-        $files = Model_Home::getFiles();
+//        $sortBy = "title";
+        if (isset($_POST["sortBy"])) {
+            $sortBy = $_POST["sortBy"];
+        } else {
+            $sortBy = "title";
+        }
+
+
+        $files = Model_Home::getFiles($sortBy);
         $this->data["files"] = $files;
 
 
