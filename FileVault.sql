@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 10, 2018 at 03:04 PM
+-- Generation Time: Aug 13, 2018 at 02:55 PM
 -- Server version: 5.7.23-0ubuntu0.16.04.1
 -- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `FileVault`
 --
-CREATE DATABASE IF NOT EXISTS `FileVault` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `FileVault`;
 
 -- --------------------------------------------------------
 
@@ -36,38 +34,18 @@ CREATE TABLE `assets` (
   `download` int(11) NOT NULL,
   `secure` varchar(7) NOT NULL,
   `path` text NOT NULL,
-  `upload_time` datetime NOT NULL
+  `upload_time` datetime NOT NULL,
+  `size` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `assets`
 --
 
-INSERT INTO `assets` (`uuid`, `owner`, `title`, `extension`, `download`, `secure`, `path`, `upload_time`) VALUES
-('12345678', '12345678', 'Andy Williams\' Speak Softly, Love (from \'The Godfather\')', '.mp3', 0, 'private', '/', '2018-08-10 14:24:06'),
-('12345679', '12345678', 'Andy Williams\' Speak Softly, Love (from \'The Godfather\')', '.mp3', 0, 'private', '/', '2018-08-10 14:24:06');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `uuid` varchar(8) NOT NULL,
-  `username` varchar(30) NOT NULL,
-  `password` varchar(64) NOT NULL,
-  `email` varchar(254) NOT NULL,
-  `active` varchar(5) NOT NULL,
-  `confirmed` varchar(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`uuid`, `username`, `password`, `email`, `active`, `confirmed`) VALUES
-('6a86fa2e', 'astipic', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'antonio.stipic2@gmail.com', 'true', 'true');
+INSERT INTO `assets` (`uuid`, `owner`, `title`, `extension`, `download`, `secure`, `path`, `upload_time`, `size`) VALUES
+('4ed87e4b', '6a86fa2e', 'FileVault - Logo', '.png', 0, 'false', 'uploads/6a86fa2e/2018/08/FileVault - Logo.png', '2018-08-13 09:29:44', 21099),
+('dee83fda', 'a6a2f031', 'FileVault', '.png', 0, 'false', 'uploads/a6a2f031/2018/08/FileVault.png', '2018-08-13 09:30:03', 21099),
+('e71db467', '6a86fa2e', 'Andy Williams\' Speak Softly, Love', '.mp3', 0, 'false', 'uploads/6a86fa2e/2018/08/Andy Williams\' Speak Softly, Love.mp3', '2018-08-13 09:45:57', 4446386);
 
 --
 -- Indexes for dumped tables
@@ -78,14 +56,6 @@ INSERT INTO `users` (`uuid`, `username`, `password`, `email`, `active`, `confirm
 --
 ALTER TABLE `assets`
   ADD PRIMARY KEY (`uuid`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`uuid`),
-  ADD UNIQUE KEY `username` (`username`),
-  ADD UNIQUE KEY `email` (`email`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
