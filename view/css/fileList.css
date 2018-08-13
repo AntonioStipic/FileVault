@@ -240,3 +240,19 @@ hr {
 
     width: 90%;
 }
+
+.orderBy {
+    cursor: pointer;
+
+    -webkit-transition: background-color 150ms linear;
+    -ms-transition: background-color 150ms linear;
+    transition: background-color 150ms linear;
+}
+
+.orderBy:hover {
+    background-color: #E8E8E8;
+    /*color: #EAE7E7;*/
+    -webkit-transition: background-color 150ms linear;
+    -ms-transition: background-color 150ms linear;
+    transition: background-color 150ms linear;
+}

@@ -34,6 +34,10 @@ class Model_Home extends Lib_Model {
 
         $files = $stmt->fetchAll();
 
+        for ($i = 0; $i < count($files); $i++) {
+            $files[$i]["size"] = filesize($files[$i]["path"]);
+        }
+
         return $files;
     }
 }

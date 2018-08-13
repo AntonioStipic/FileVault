@@ -90,8 +90,6 @@ $(".asset").on("contextmenu", function (event) {
     currentlyRightClickedName = parser.parseFromString(currentlyRightClickedName, "text/html");
     currentlyRightClickedName = currentlyRightClickedName.body.textContent;
 
-
-    console.log(currentlyRightClickedName);
     // alert($( parent + "  > .id" ).html());
 
     // Avoid the real one
@@ -172,4 +170,9 @@ function submitRenameFile() {
     $("#renameFileSubmit").trigger("click");
 
     // document.getElementById("renameModalName").value = "";
+}
+
+function sortBy(what) {
+    document.getElementById("sortBy").value = what;
+    $("#sortSubmit").trigger("click");
 }

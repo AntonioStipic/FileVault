@@ -37,10 +37,10 @@
 
                 <table class="fileListHeader slightMargin">
                     <tr>
-                        <td class="fileListHeaderName">Name</td>
-                        <td class="fileListHeaderOwner">| Owner</td>
-                        <td class="fileListHeaderUploadTime">| Upload time</td>
-                        <td class="fileListHeaderSize">| Size</td>
+                        <td class="fileListHeaderName orderBy" onclick="sortBy('title')">Name</td>
+                        <td class="fileListHeaderOwner orderBy" onclick="sortBy('owner')">| Owner</td>
+                        <td class="fileListHeaderUploadTime orderBy" onclick="sortBy('upload_time')">| Upload time</td>
+                        <td class="fileListHeaderSize orderBy" onclick="sortBy('size')">| Size</td>
                     </tr>
                 </table>
                 <hr>
@@ -59,7 +59,65 @@
 
                     <?php
 
+                    /* function cmp($a, $b)
+                    {
+                        return strcmp($a->title, $b->title);
+                    }
+
+                    usort($data["files"], "cmp"); */
+
+//                    $data["files"]->asort();
+
+//                    print_r($data["files"]);
                     for ($i = 0; $i < count($data["files"]); $i++) {
+                        $data["files"][$i] = (object) $data["files"][$i];
+                    }
+
+//                    $data["files"][0] = (object) $data["files"][0];
+//                    echo gettype($object);
+//                    ksort($data["files"]);
+//                    print_r($object);
+
+                    /* $sortBy = "upload_time";
+                    function cmp($a, $b)
+                    {
+
+                    } */
+                    if (!isset($data["sortBy"])) {
+                        $sortBy = "title";
+                    } else {
+                        $sortBy = $data["sortBy"];
+                    }
+                    usort($data["files"], function ($a, $b) use ($sortBy) {
+                        return strcasecmp($a->{$sortBy}, $b->{$sortBy});
+                    });
+
+
+                    /* usort($data["files"], function ($a, $b) use ($sortBy) {
+                        if ($a[$sortBy] < $b[$sortBy]) {
+                            return -1;
+                        } else if ($a[$sortBy] > $b[$sortBy]) {
+                            return 1;
+                        } else {
+                            return 0;
+                        }
+                    }); */
+
+
+                    for ($i = 0; $i < count($data["files"]); $i++) {
+                        $userInfo = new Model_UserInfo($data["files"][$i]->owner);
+                        echo '<tr class="asset right-click">
+                        <td style="display: none" class="id">' . $data["files"][$i]->uuid . '</td>
+                        <td class="fileListHeaderName"><i class="fa fa-file"></i> ' . $data["files"][$i]->title . $data["files"][$i]->extension . '</td>
+                        <td class="fileListHeaderOwner">| ' . $userInfo->username . '</td>
+                        <td class="fileListHeaderUploadTime">| ' . $data["files"][$i]->upload_time . '</td>
+                        <td class="fileListHeaderSize">| ' . Model_File::formatSizeUnits($data["files"][$i]->size) . '</td>
+                    </tr>';
+                    }
+//                    Model_File::formatSizeUnits(filesize($data["files"][$i]->path))
+
+
+                    /* for ($i = 0; $i < count($data["files"]); $i++) {
                         $userInfo = new Model_UserInfo($data["files"][$i]["owner"]);
                         echo '<tr class="asset right-click">
                         <td style="display: none" class="id">' . $data["files"][$i]["uuid"] . '</td>
@@ -68,7 +126,7 @@
                         <td class="fileListHeaderUploadTime">| ' . $data["files"][$i]["upload_time"] . '</td>
                         <td class="fileListHeaderSize">| ' . Model_File::formatSizeUnits(filesize($data["files"][$i]["path"])) . '</td>
                     </tr>';
-                    }
+                    } */
 
 
 
@@ -138,7 +196,7 @@
                 <span class="close">&times;</span>
                 <div class="modalContainer">
                     <h3>Rename file:</h3>
-                    <input type="text" id="renameModalName" class="inputHeight" name="renameModalName"><br>
+                    <input type="text" id="renameModalName" class="inputHeight" name="renameModalName" spellcheck="false"><br>
                     <button class="blueButton" onclick="submitRenameFile();">OK</button>
                 </div>
             </div>
@@ -162,7 +220,13 @@
             <input type="hidden" name="action" value="rename">
             <input type="hidden" name="fileId" id="renameFileId">
             <input type="hidden" name="fileName" id="renameFileName">
-            <input type="submit" value="Delete" name="delete" id="renameFileSubmit">
+            <input type="submit" value="Rename" name="delete" id="renameFileSubmit">
+        </form>
+
+        <form method="POST" style="display: none">
+            <input type="hidden" name="action" value="sort">
+            <input type="hidden" name="sortBy" id="sortBy">
+            <input type="submit" value="Sort" name="sort" id="sortSubmit">
         </form>
 
 

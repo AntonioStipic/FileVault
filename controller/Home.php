@@ -14,7 +14,7 @@ class Controller_Home extends Lib_Controller {
         $this->view->render("Home", $this->data);
     }
 
-    function checkRequest() {
+    function checkRequest() {;
         if (isset($_POST["action"])) {
             $this->doAction($_POST["action"]);
         }
@@ -32,6 +32,8 @@ class Controller_Home extends Lib_Controller {
             $this->deleteFile($_POST["fileId"]);
         } else if ($action == "rename") {
             $this->renameFile($_POST["fileId"], $_POST["fileName"]);
+        } else if ($action == "sort") {
+            $this->sort($_POST["sortBy"]);
         }
     }
 
@@ -58,13 +60,13 @@ class Controller_Home extends Lib_Controller {
             $fileSecure = "false";
         }
 
-        $target_dir = "uploads/" . date("Y") . "/" . date("m") . "/";
+        $target_dir = "uploads/" . $_SESSION["user"] . "/" . date("Y") . "/" . date("m") . "/";
 
         if (!file_exists($target_dir)) {
             mkdir($target_dir, 0777, true);
         }
 
-        $fileName = addslashes(basename($_FILES["fileToUpload"]["name"]));
+        $fileName = basename($_FILES["fileToUpload"]["name"]);
         $target_file = $target_dir . $fileNam;
 
 
@@ -168,6 +170,12 @@ class Controller_Home extends Lib_Controller {
         }
     }
 
+    function sort($sortBy) {
+        $this->data["sortBy"] = $sortBy;
+//        $this->view->render("Home", $this->data);
+
+    }
+
     function getUser() {
         $user = Model_Home::getUser();
         $this->data["user"] = $user;
@@ -176,5 +184,7 @@ class Controller_Home extends Lib_Controller {
     function getFiles() {
         $files = Model_Home::getFiles();
         $this->data["files"] = $files;
+
+
     }
 }
