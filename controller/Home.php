@@ -30,6 +30,8 @@ class Controller_Home extends Lib_Controller {
             $this->download($_POST["fileId"]);
         } else if ($action == "delete") {
             $this->deleteFile($_POST["fileId"]);
+        } else if ($action == "rename") {
+            $this->renameFile($_POST["fileId"], $_POST["fileName"]);
         }
     }
 
@@ -62,7 +64,7 @@ class Controller_Home extends Lib_Controller {
             mkdir($target_dir, 0777, true);
         }
 
-        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+        $target_file = $target_dir . addslashes(basename($_FILES["fileToUpload"]["name"]));
         $uploadOk = 1;
         if ($_FILES["fileToUpload"]["size"] > 50000000) {
             echo "<script>console.log('file too big')</script>";
@@ -72,15 +74,17 @@ class Controller_Home extends Lib_Controller {
         if ($uploadOk == 0) {
             echo "Sorry, your file was not uploaded.";
         } else {
-            echo "";
             try {
-                move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+                try {
+                    move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+                } catch (Exception $err) {
+                    echo 'Caught exception: ',  $err->getMessage(), "\n";
+                    echo "<script>console.log('" . $err->getMessage() . "')</script>";
+                }
 
                 $fileName = $_FILES["fileToUpload"]["name"];
-                echo "The file ". basename($fileName). " has been uploaded.";
 
                 $fileUpload = new Model_UploadFile($fileName, $fileSecure);
-
                 $fileUpload->uploadToDatabase($target_file);
             } catch (Exception $e) {
                 echo 'Caught exception: ',  $e->getMessage(), "\n";
@@ -99,7 +103,7 @@ class Controller_Home extends Lib_Controller {
             } */
         }
 
-//        header("Location: /");
+        header("Location: /");
     }
 
     function deleteFile($fileId) {
@@ -116,6 +120,16 @@ class Controller_Home extends Lib_Controller {
             } else {
                 header("Location: /error");
             }
+        }
+    }
+
+    function renameFile($fileId, $fileName) {
+        $file = new Model_File($fileId);
+
+        if ($file->renameFile($fileName)) {
+            header("Location: /");
+        } else {
+            header("Location: /error");
         }
     }
 

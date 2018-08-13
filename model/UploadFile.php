@@ -18,12 +18,18 @@ class Model_UploadFile {
         $extension = substr($this->fileName, strpos($this->fileName, "."));
 
         $name = substr($this->fileName, 0, strlen($this->fileName) - strlen($extension));
+
+        if ($name == "") {
+            $name = $extension;
+            $extension = "";
+        }
+
         $datetime = date("Y-m-d H:i:s");
 
 
-        $stmt = $conn->prepare("INSERT INTO assets VALUES ('$uuid', '$owner', '$name', '$extension', 0, '$this->fileSecure', '$path', '$datetime')");
+        $stmt = $conn->prepare("INSERT INTO assets VALUES (?, ?, ?, ?, 0, ?, ?, ?)");
 
-        if ($stmt->execute()) {
+        if ($stmt->execute([$uuid, $owner, $name, $extension, $this->fileSecure, $path, $datetime])) {
             echo "Successfully uploaded!";
         } else {
             echo "Nope";

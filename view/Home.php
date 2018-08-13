@@ -95,7 +95,7 @@
 
         <ul class="custom-menu">
             <li data-action="download"><i class="fa fa-download"></i> Download</li>
-            <li data-action="second"><i class="fa fa-pencil"></i> Rename</li>
+            <li data-action="rename"><i class="fa fa-pencil"></i> Rename</li>
             <hr>
             <li data-action="delete" class="red"><i class="fa fa-trash"></i> Delete</li>
 
@@ -132,6 +132,18 @@
             </div>
         </div>
 
+        <!-- RENAME MODAL -->
+        <div id="renameModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="modalContainer">
+                    <h3>Rename file:</h3>
+                    <input type="text" id="renameModalName" class="inputHeight" name="renameModalName"><br>
+                    <button class="blueButton" onclick="submitRenameFile();">OK</button>
+                </div>
+            </div>
+        </div>
+
 
         <!-- Functions -->
         <form method="POST" style="display: none">
@@ -144,6 +156,13 @@
             <input type="hidden" name="action" value="delete">
             <input type="hidden" name="fileId" id="deleteFileId">
             <input type="submit" value="Delete" name="delete" id="deleteFileSubmit">
+        </form>
+
+        <form method="POST" style="display: none">
+            <input type="hidden" name="action" value="rename">
+            <input type="hidden" name="fileId" id="renameFileId">
+            <input type="hidden" name="fileName" id="renameFileName">
+            <input type="submit" value="Delete" name="delete" id="renameFileSubmit">
         </form>
 
 

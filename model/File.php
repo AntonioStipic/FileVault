@@ -41,6 +41,43 @@ class Model_File {
         return $success;
     }
 
+    function renameFile($fileName) {
+
+        $extension = substr($fileName, strpos($fileName, "."));
+
+        $name = substr($fileName, 0, strlen($fileName) - strlen($extension));
+
+        if ($name == "") {
+            $name = $extension;
+            $extension = "";
+        }
+
+
+        $success = false;
+        $db = new DB_Connection();
+        $conn = $db->conn;
+
+        $stmt = $conn->prepare("UPDATE assets SET title=?, extension=?, path=? WHERE uuid=?");
+
+        $origPath = substr($this->path, 0, strlen($this->path) - strlen(strrchr($this->path, "/"))) . "/";
+
+        $newPath = $origPath . $fileName;
+
+        if ($stmt->execute([$name, $extension, $newPath, $this->uuid])) {
+
+
+            if (rename($this->path, $newPath)) {
+                $success = true;
+            } else {
+                $success = false;
+            }
+        }
+
+        $conn = null;
+
+        return $success;
+    }
+
     public function __get($property) {
         if (property_exists($this, $property)) {
             return $this->$property;

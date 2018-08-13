@@ -1,5 +1,6 @@
-let uploadModal = document.getElementById('uploadModal');
-let deleteModal = document.getElementById('deleteModal');
+let uploadModal = document.getElementById("uploadModal");
+let deleteModal = document.getElementById("deleteModal");
+let renameModal = document.getElementById("renameModal");
 
 // Get the button that opens the modal
 let btn = document.getElementById("uploadButton");
@@ -7,6 +8,7 @@ let btn = document.getElementById("uploadButton");
 // Get the <span> element that closes the modal
 let uploadSpan = document.getElementsByClassName("close")[0];
 let deleteSpan = document.getElementsByClassName("close")[1];
+let renameSpan = document.getElementsByClassName("close")[2];
 
 // When the user clicks on the button, open the modal
 btn.onclick = function() {
@@ -23,6 +25,10 @@ deleteSpan.onclick = function() {
     deleteModal.style.display = "none";
 }
 
+renameSpan.onclick = function () {
+    renameModal.style.display = "none";
+}
+
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == uploadModal) {
@@ -30,6 +36,8 @@ window.onclick = function(event) {
         uploadModal.style.display = "none";
     } else if (event.target == deleteModal) {
         deleteModal.style.display = "none";
+    } else if (event.target == renameModal) {
+        renameModal.style.display = "none";
     }
 }
 
@@ -69,10 +77,21 @@ function clearFile() {
 
 
 var currentlyRightClicked = "";
+var currentlyRightClickedName = "";
 
 $(".asset").on("contextmenu", function (event) {
 
     currentlyRightClicked = $(this).find('.id').html();
+    currentlyRightClickedName = $(this).find('.fileListHeaderName').html();
+    currentlyRightClickedName = currentlyRightClickedName.substring(currentlyRightClickedName.indexOf("</i>") + 5);
+
+    let parser = new DOMParser;
+
+    currentlyRightClickedName = parser.parseFromString(currentlyRightClickedName, "text/html");
+    currentlyRightClickedName = currentlyRightClickedName.body.textContent;
+
+
+    console.log(currentlyRightClickedName);
     // alert($( parent + "  > .id" ).html());
 
     // Avoid the real one
@@ -110,7 +129,7 @@ $(".custom-menu li").click(function(){
         case "download": downloadFile(); break;
         // A case for each action. Your actions here
         case "delete": deleteFile(); break;
-        case "second": alert("second"); break;
+        case "rename": renameFileModal(); break;
         case "third": alert("third"); break;
     }
 
@@ -126,7 +145,7 @@ function downloadFile() {
 }
 
 function deleteFile() {
-    document.getElementById("downloadFileId").value = currentlyRightClicked;
+    // document.getElementById("downloadFileId").value = currentlyRightClicked;
     // $("#downloadFileSubmit").trigger("click");
 
     deleteModal.style.display = "block";
@@ -135,4 +154,22 @@ function deleteFile() {
 function submitDeleteFile() {
     document.getElementById("deleteFileId").value = currentlyRightClicked;
     $("#deleteFileSubmit").trigger("click");
+}
+
+function renameFileModal() {
+    document.getElementById("renameModalName").value = decodeURI(currentlyRightClickedName);
+
+    renameModal.style.display = "block";
+    document.getElementById("renameModalName").focus();
+}
+
+function submitRenameFile() {
+    let newName = document.getElementById("renameModalName").value;
+
+    document.getElementById("renameFileId").value = currentlyRightClicked;
+    document.getElementById("renameFileName").value = newName;
+
+    $("#renameFileSubmit").trigger("click");
+
+    // document.getElementById("renameModalName").value = "";
 }
