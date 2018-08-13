@@ -30,6 +30,8 @@ class Controller_Action extends Lib_Controller {
             $this->deleteFile($_POST["fileId"]);
         } else if ($action == "rename") {
             $this->renameFile($_POST["fileId"], $_POST["fileName"]);
+        } else if ($action == "sort") {
+            $this->sort($_POST["sortBy"]);
         }
     }
 

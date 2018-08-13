@@ -181,3 +181,9 @@ function submitRenameFile() {
             }
         });
 }
+
+function sortBy(what) {
+    document.getElementById("sortBy").value = what;
+
+    $("#sortSubmit").trigger("click");
+}

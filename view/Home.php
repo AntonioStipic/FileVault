@@ -26,12 +26,7 @@
         </div>
         <div class="container">
 
-
-
-
-            <p>My files:</p>
-
-
+            <input type="text" class="searchBar"> <button class="searchButton"><i class="fa fa-search"></i></button><br><br>
             <div class="fileList">
 
                 <table class="fileListHeader slightMargin">
@@ -151,7 +146,7 @@
 
         <!-- UPLOAD MODAL -->
         <div id="uploadModal" class="modal">
-            <div class="modal-content">
+            <div class="modal-content uploadModal">
                 <span class="close">&times;</span>
                 <h2>Upload file:</h2>
                 <div class="modalContainer">
@@ -197,6 +192,12 @@
             <input type="hidden" name="action" value="download">
             <input type="hidden" name="fileId" id="downloadFileId">
             <input type="submit" value="Download" name="download" id="downloadFileSubmit">
+        </form>
+
+        <form method="POST" style="display: none">
+            <input type="hidden" name="action" value="sort">
+            <input type="hidden" name="sortBy" id="sortBy">
+            <input type="submit" value="Sort" name="sort" id="sortSubmit">
         </form>
 
         <script src="/view/js/modalLogic.js"></script>

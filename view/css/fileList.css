@@ -4,6 +4,19 @@
     margin-left: 15vw;
 }
 
+.searchBar {
+    width: 30vw;
+    border: 1px solid #EAE7E7;
+    margin-left: 15vw;
+    font-size: 1.2em;
+}
+
+.searchButton {
+    font-size: 1em;
+    background-color: #0092E7;
+    border: none;
+    padding: 0.3em;
+}
 
 .asset {
     cursor: pointer;
@@ -192,7 +205,9 @@ hr {
     color: #EAE7E7;
 }
 
-
+.uploadModal {
+    width: 40%;
+}
 
 
 
