@@ -117,6 +117,10 @@ $(document).on("mousedown", function (e) {
     }
 });
 
+$("#searchButton").click(function() {
+    search();
+});
+
 
 // If the menu element is clicked
 $(".custom-menu li").click(function(){
@@ -180,6 +184,22 @@ function submitRenameFile() {
                 location.reload();
             }
         });
+}
+
+function search() {
+    let phrase = document.getElementById("searchBar").value;
+
+    /* let data = {"action": "search", "fileId": currentlyRightClicked, "fileName": newName};
+
+    $.post("/action",data,
+        function(data){
+            data = JSON.parse(data);
+            if (data["success"] == true) {
+                renameModal.style.display = "none";
+                location.reload();
+            }
+        }); */
+
 }
 
 function sortBy(what) {
