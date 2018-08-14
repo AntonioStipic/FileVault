@@ -26,7 +26,7 @@
         </div>
         <div class="container">
 
-            <input type="text" class="searchBar" id="searchBar"> <button class="searchButton" id="searchButton"><i class="fa fa-search"></i></button><br><br>
+            <input type="text" class="searchBar" id="searchBar" value="<?php echo $data["search"]; ?>"> <button class="searchButton" id="searchButton"><i class="fa fa-search"></i></button><br><br>
             <div class="fileList">
 
                 <table class="fileListHeader slightMargin">

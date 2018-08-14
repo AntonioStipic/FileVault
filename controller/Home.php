@@ -11,7 +11,14 @@ class Controller_Home extends Lib_Controller {
 
         $this->checkRequest();
         $this->getUser();
-        $this->getFiles();
+
+        if (!isset($_GET["search"])) {
+            $this->getFiles();
+            $this->data["search"] = "";
+        } else {
+            $this->searchFiles($_GET["search"]);
+            $this->data["search"] = $_GET["search"];
+        }
         $this->view->render("Home", $this->data);
     }
 
@@ -185,6 +192,21 @@ class Controller_Home extends Lib_Controller {
 
 
         $files = Model_Home::getFiles($sortBy);
+        $this->data["files"] = $files;
+
+
+    }
+
+    function searchFiles($phrase) {
+//        $sortBy = "title";
+        if (isset($_POST["sortBy"])) {
+            $sortBy = $_POST["sortBy"];
+        } else {
+            $sortBy = "title";
+        }
+
+
+        $files = Model_Home::searchFiles($phrase, $sortBy);
         $this->data["files"] = $files;
 
 

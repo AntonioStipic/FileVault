@@ -189,17 +189,20 @@ function submitRenameFile() {
 function search() {
     let phrase = document.getElementById("searchBar").value;
 
-    /* let data = {"action": "search", "fileId": currentlyRightClicked, "fileName": newName};
+    /* let data = {"action": "search", "phrase": phrase};
 
     $.post("/action",data,
         function(data){
-            data = JSON.parse(data);
+            console.log(data);
+        data = JSON.parse(data);
             if (data["success"] == true) {
                 renameModal.style.display = "none";
                 location.reload();
             }
-        }); */
+        });
+    */
 
+    window.location.href = "/home?search=" + phrase;
 }
 
 function sortBy(what) {

@@ -44,4 +44,25 @@ class Model_Home extends Lib_Model {
 
         return $files;
     }
+
+    public function searchFiles($phrase, $sortBy) {
+        $db = new DB_Connection();
+        $conn = $db->conn;
+        #echo "<br>";
+        $uuid = $_SESSION["user"];
+//        $stmt = $conn->prepare("SELECT *, LOCATE(?, title) FROM assets WHERE owner=? ORDER BY " . $sortBy);
+        $stmt = $conn->prepare("SELECT * FROM assets WHERE (LOCATE(?, title) > 0 AND owner=?) ORDER BY " . $sortBy);
+        $stmt->execute([$phrase, $uuid]);
+
+
+        $files = $stmt->fetchAll();
+
+
+
+        for ($i = 0; $i < count($files); $i++) {
+            $files[$i]["size"] = filesize($files[$i]["path"]);
+        }
+
+        return $files;
+    }
 }

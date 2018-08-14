@@ -2,7 +2,7 @@
 
 class Controller_Action extends Lib_Controller {
 
-    protected $actions = ["logout", "upload", "download", "delete", "rename", "sort"];
+    protected $actions = ["logout", "upload", "download", "delete", "rename", "sort", "search"];
 
     function __construct() {
         parent::__construct();
@@ -15,6 +15,8 @@ class Controller_Action extends Lib_Controller {
 //        print_r($_POST);
         if (isset($_POST["action"]) && in_array($_POST["action"], $this->actions)) {
             $this->doAction($_POST["action"]);
+        } else {
+            echo "401: Denied";
         }
     }
 
@@ -32,7 +34,10 @@ class Controller_Action extends Lib_Controller {
             $this->renameFile($_POST["fileId"], $_POST["fileName"]);
         } else if ($action == "sort") {
             $this->sort($_POST["sortBy"]);
+        } else if ($action == "search") {
+            header("Location: /home?search=" . $_POST["phrase"]);
         }
+
     }
 
 
