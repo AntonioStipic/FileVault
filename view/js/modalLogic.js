@@ -32,7 +32,7 @@ renameSpan.onclick = function () {
 }
 
 shareSpan.onclick = function () {
-    $("#shareSelected").html("");
+    $("#shareSelected").html("<i>Select username</i>");
     $("#shareSelector").val("");
     shareModal.style.display = "none";
 }
@@ -51,7 +51,7 @@ $("#shareSelector").keypress(function() {
     document.getElementById("shareSuggestions").innerHTML = "";
     let value = $("#shareSelector").val();
 
-    if ($("#shareSelector").value == "") {
+    if ($("#shareSelector").value == "<i>Select username</i>") {
         document.getElementById("shareModalButtonAdd").disabled = true;
     } else {
 
@@ -100,8 +100,11 @@ $("#shareModalButtonAdd").click(function () {
     let shareSelectedValue = $("#shareSelected").html();
 
     let dot = "";
-    if (shareSelectedValue != "") dot = ", ";
-    if (shareSelectedValue.indexOf("<b>" + tmpUser + "</b>") < 0 && tmpUser != "") {
+    if (shareSelectedValue != "<i>Select username</i>") dot = ", ";
+    if (shareSelectedValue.indexOf("<b>" + tmpUser + "</b>") < 0 && tmpUser != "" && tmpUser != document.getElementById("userUsername").innerHTML) {
+
+        if (dot == "") shareSelectedValue = "";
+
         shareSelectedValue += (dot + "<b>" +  tmpUser + "</b>");
 
         $("#shareSelected").html(shareSelectedValue);
@@ -121,7 +124,8 @@ $("#shareModalButton").click(function () {
 
         $.post("/action",data,
             function(data){
-
+                $("#shareSelected").html("<i>Select username</i>");
+                $("#shareSelector").val("");
                 shareModal.style.display = "none";
             });
     }
@@ -138,7 +142,7 @@ window.onclick = function(event) {
     } else if (event.target == renameModal) {
         renameModal.style.display = "none";
     } else if (event.target == shareModal) {
-        $("#shareSelected").html("");
+        $("#shareSelected").html("<i>Select username</i>");
         $("#shareSelector").val("");
         shareModal.style.display = "none";
     }

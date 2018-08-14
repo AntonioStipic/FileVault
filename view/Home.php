@@ -15,6 +15,7 @@
     <body>
         <?php include "Header.php"; ?>
         <div hidden id="userUuid"><?php echo $data["user"]["uuid"]; ?></div>
+        <div hidden id="userUsername"><?php echo $data["user"]["username"]; ?></div>
         <div class="homeHeader">
             Hello, <?php echo $data["user"]["username"]; ?>!
 
@@ -40,7 +41,7 @@
                     </tr>
                 </table>
                 <hr>
-                <table class="fileListHeader">
+                <table class="fileListHeader fileTable">
 
                     <?php
 
@@ -138,7 +139,7 @@
                 <span class="close">&times;</span>
                 <div class="modalContainer">
                     <h3 class="alignLeft">Share to:</h3>
-                    <div id="shareSelected" class="inputHeight shareSelected"></div>
+                    <div id="shareSelected" class="inputHeight shareSelected"><i>Select username</i></div>
                     <input type="text" id="shareSelector" class="inputHeight" spellcheck="false" list="shareSuggestions"><br>
                     <datalist id="shareSuggestions">
                     </datalist>

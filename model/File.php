@@ -115,7 +115,7 @@ class Model_File {
 
             $tmpUserUuid = $tmpUser->uuid;
 
-            $stmt = $conn->prepare("INSERT INTO relations VALUES (?, ?)");
+            $stmt = $conn->prepare("INSERT INTO relations VALUES (NULL, ?, ?)");
 
             try {
                 $stmt->execute([$tmpUserUuid, $fileId]);

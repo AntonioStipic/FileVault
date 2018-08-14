@@ -63,7 +63,9 @@ class Controller_Action extends Lib_Controller {
         $file = new Model_File("");
 
         if ($file->shareFile($fileId, $usernames)) {
-
+            echo "Yes";
+        } else {
+            echo "No";
         }
     }
 

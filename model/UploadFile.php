@@ -62,7 +62,7 @@ class Model_UploadFile
 
         if ($stmt->execute([$uuid, $owner, $name, $extension, $this->fileSecure, $path, $datetime, $size])) {
 
-            $stmt2 = $conn->prepare("INSERT INTO relations VALUES (?, ?)");
+            $stmt2 = $conn->prepare("INSERT INTO relations VALUES (NULL, ?, ?)");
             if ($stmt2->execute([$owner, $uuid])) {
                 echo "Successfully uploaded!";
             } else {
