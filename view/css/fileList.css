@@ -187,6 +187,16 @@
     cursor: pointer;
 }
 
+.greenButton {
+    background-color: #55AA55;
+    cursor: pointer;
+}
+
+.greenButton:disabled {
+    background-color: #88CC88;
+    opacity: 0.7;
+}
+
 
 #modalUploadButton {
     display: none;
@@ -275,4 +285,23 @@ hr {
     -webkit-transition: background-color 150ms linear;
     -ms-transition: background-color 150ms linear;
     transition: background-color 150ms linear;
+}
+
+#searchBar {
+    box-shadow: 0 6px 10px 0 rgba(0, 0, .1 , .1);
+    /*border: 0;*/
+}
+
+.alignLeft {
+    text-align: left;
+}
+
+.shareSelected {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    height: 30px;
+    border: 1px solid #998E8E;
+    background-color: #F5EBEB;
 }

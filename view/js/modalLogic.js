@@ -35,6 +35,54 @@ shareSpan.onclick = function () {
     shareModal.style.display = "none";
 }
 
+setTimeout(function () {
+
+}, 1000)
+
+$("#searchBar").focus();
+let input = document.getElementById("searchBar");
+let tmpStr = input.value;
+input.value = "";
+input.value = tmpStr;
+
+document.getElementById("searchBar").addEventListener("search", function(event) {
+    search();
+});
+
+
+$("#shareSelector").keypress(function() {
+    document.getElementById("shareSuggestions").innerHTML = "";
+    let value = $("#shareSelector").val();
+
+    if ($("#shareSelector").value == "") {
+        document.getElementById("shareModalButtonAdd").disabled = true;
+    } else {
+        document.getElementById("shareModalButtonAdd").disabled = false;
+    }
+
+    // document.getElementById("shareModalButtonAdd").disabled = false;
+    let data = {"action": "shareRecommed", "name": value};
+
+    let suggestions = document.getElementById("shareSuggestions");
+    let htmlToAdd = "";
+    $.post("/action", data,
+        function(data){
+            data = JSON.parse(data);
+
+            console.log(data);
+            suggestions.innerHTML = "";
+            for (let i = 0; i < data.length; i++) {
+                // htmlToAdd += '<option value="' + data[i]["username"] + '">';
+                let option = document.createElement("option");
+                option.value = data[i]["username"];
+                suggestions.appendChild(option);
+            }
+
+            // if (oldHtml != htmlToAdd) document.getElementById("shareSuggestions").innerHTML = htmlToAdd;
+        });
+});
+
+
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == uploadModal) {
@@ -178,6 +226,7 @@ function downloadFile() {
 }
 
 function shareFile() {
+    document.getElementById("shareModalButtonAdd").disabled = true;
     shareModal.style.display = "block";
 }
 

@@ -2,7 +2,7 @@
 
 class Controller_Action extends Lib_Controller {
 
-    protected $actions = ["logout", "upload", "download", "delete", "rename", "sort", "search"];
+    protected $actions = ["logout", "upload", "download", "delete", "rename", "sort", "search", "shareRecommed"];
 
     function __construct() {
         parent::__construct();
@@ -32,8 +32,20 @@ class Controller_Action extends Lib_Controller {
             $this->sort($_POST["sortBy"]);
         } else if ($action == "search") {
             header("Location: /home?search=" . $_POST["phrase"]);
+        } else if ($action == "shareRecommed") {
+            $this->findUser($_POST["name"]);
         }
 
+    }
+
+    function findUser($name) {
+        $user = new Model_User("");
+
+        $users = $user->findUser($name);
+
+        $users = json_encode($users);
+
+        print_r($users);
     }
 
     function renameFile($fileId, $fileName) {

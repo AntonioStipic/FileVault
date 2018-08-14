@@ -26,7 +26,7 @@
         </div>
         <div class="container">
 
-            <input type="text" class="searchBar" id="searchBar" value="<?php echo $data["search"]; ?>"> <button class="searchButton" id="searchButton"><i class="fa fa-search"></i></button><br><br>
+            <input type="search" class="searchBar" id="searchBar" value="<?php echo $data["search"]; ?>"> <button class="searchButton" id="searchButton"><i class="fa fa-search"></i></button><br><br>
             <div class="fileList">
 
                 <table class="fileListHeader slightMargin">
@@ -40,52 +40,8 @@
                 </table>
                 <hr>
                 <table class="fileListHeader">
-                    <!-- <tr class="asset">
-                        <td class="fileListHeaderName"><i class="fa fa-file"></i> Test.txt</td>
-                        <td class="fileListHeaderOwner">| astipic</td>
-                        <td class="fileListHeaderUploadTime">| Hej</td>
-                    </tr>
-
-                    <tr class="asset">
-                        <td class="fileListHeaderName"><i class="fa fa-file"></i> Test.txt</td>
-                        <td class="fileListHeaderOwner">| astipic</td>
-                        <td class="fileListHeaderUploadTime">| Hej</td>
-                    </tr> -->
 
                     <?php
-
-                    /* function cmp($a, $b)
-                    {
-                        return strcmp($a->title, $b->title);
-                    }
-
-                    usort($data["files"], "cmp"); */
-
-//                    $data["files"]->asort();
-
-//                    print_r($data["files"]);
-                    /* for ($i = 0; $i < count($data["files"]); $i++) {
-                        $data["files"][$i] = (object) $data["files"][$i];
-                    } */
-
-//                    $data["files"][0] = (object) $data["files"][0];
-//                    echo gettype($object);
-//                    ksort($data["files"]);
-//                    print_r($object);
-
-                    /* $sortBy = "upload_time";
-                    function cmp($a, $b)
-                    {
-
-                    } */
-                    /* if (!isset($data["sortBy"])) {
-                        $sortBy = "title";
-                    } else {
-                        $sortBy = $data["sortBy"];
-                    }
-                    usort($data["files"], function ($a, $b) use ($sortBy) {
-                        return strcasecmp($a->{$sortBy}, $b->{$sortBy});
-                    }); */
 
 
                     for ($i = 0; $i < count($data["files"]); $i++) {
@@ -99,21 +55,6 @@
                         <td class="fileListHeaderSize">| ' . Model_File::formatSizeUnits($data["files"][$i]["size"]) . '</td>
                     </tr>';
                     }
-//                    Model_File::formatSizeUnits(filesize($data["files"][$i]->path))
-//                    date_format(strtotime($data["files"][$i]->upload_time), 'd/m/Y H:i:s')
-//
-
-                    /* for ($i = 0; $i < count($data["files"]); $i++) {
-                        $userInfo = new Model_UserInfo($data["files"][$i]["owner"]);
-                        echo '<tr class="asset right-click">
-                        <td style="display: none" class="id">' . $data["files"][$i]["uuid"] . '</td>
-                        <td class="fileListHeaderName"><i class="fa fa-file"></i> ' . $data["files"][$i]["title"] . $data["files"][$i]["extension"] . '</td>
-                        <td class="fileListHeaderOwner">| ' . $userInfo->username . '</td>
-                        <td class="fileListHeaderUploadTime">| ' . $data["files"][$i]["upload_time"] . '</td>
-                        <td class="fileListHeaderSize">| ' . Model_File::formatSizeUnits(filesize($data["files"][$i]["path"])) . '</td>
-                    </tr>';
-                    } */
-
 
 
                     ?>
@@ -195,9 +136,13 @@
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <div class="modalContainer">
-                    <h3>Share file:</h3>
-                    <input type="text" id="renameModalName" class="inputHeight" name="renameModalName" spellcheck="false"><br>
-                    <button class="blueButton" id="renameModalButton">OK</button>
+                    <h3 class="alignLeft">Share to:</h3>
+                    <input type="text" id="shareSelected" class="inputHeight shareSelected" spellcheck="false" disabled><br>
+                    <input type="text" id="shareSelector" class="inputHeight" spellcheck="false" list="shareSuggestions"><br>
+                    <datalist id="shareSuggestions">
+                    </datalist>
+                    <button class="blueButton greenButton" id="shareModalButtonAdd">Add</button>
+                    <button class="blueButton" id="shareModalButton">Share</button>
                 </div>
             </div>
         </div>
