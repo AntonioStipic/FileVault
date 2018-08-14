@@ -28,12 +28,15 @@ class Model_Home extends Lib_Model {
         $conn = $db->conn;
         #echo "<br>";
         $uuid = $_SESSION["user"];
-        $stmt = $conn->prepare("SELECT * FROM assets WHERE owner=? ORDER BY " . $sortBy);
+//        $stmt = $conn->prepare("SELECT * FROM assets WHERE owner=? ORDER BY " . $sortBy);
+
+        $stmt = $conn->prepare("SELECT * FROM relations INNER JOIN assets ON relations.file_id=assets.uuid WHERE user_id=? ORDER BY " . $sortBy);
         $stmt->execute([$uuid]);
 
 
+//        $fileList = $stmt->fetchAll();
+//        print_r(json_encode($fileList));
         $files = $stmt->fetchAll();
-
 
 
         for ($i = 0; $i < count($files); $i++) {
