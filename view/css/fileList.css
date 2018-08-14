@@ -42,19 +42,23 @@
 }
 
 .fileListHeaderName {
-    width: 35%;
+    width: 30%;
     padding-left: 10px;
 }
 
 .fileListHeaderOwner {
-    width: 25%;
+    width: 15% !important;
 }
 
 .fileListHeaderUploadTime {
-    width: 25%;
+    width: 20%;
 }
 
 .fileListHeaderSize {
+    width: 10%;
+}
+
+.fileListHeaderDownload {
     width: 15%;
 }
 

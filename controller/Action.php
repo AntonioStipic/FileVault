@@ -24,10 +24,6 @@ class Controller_Action extends Lib_Controller {
         if ($action == "logout") {
             session_destroy();
             header("Location: /");
-        } else if ($action == "upload") {
-            $this->upload();
-        } else if ($action == "download") {
-            $this->download($_POST["fileId"]);
         } else if ($action == "delete") {
             $this->deleteFile($_POST["fileId"]);
         } else if ($action == "rename") {
@@ -38,14 +34,6 @@ class Controller_Action extends Lib_Controller {
             header("Location: /home?search=" . $_POST["phrase"]);
         }
 
-    }
-
-
-    function download($fileId) {
-        $file = new Model_File($fileId);
-        $path = $file->path;
-
-        echo $path;
     }
 
     function renameFile($fileId, $fileName) {

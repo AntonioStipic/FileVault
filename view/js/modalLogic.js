@@ -121,6 +121,22 @@ $("#searchButton").click(function() {
     search();
 });
 
+$("#searchBar").keyup(function(event) {
+    if (event.keyCode === 13) {
+        search();
+    }
+});
+
+$("#renameModalName").keyup(function(event) {
+    if (event.keyCode === 13) {
+        submitRenameFile();
+    }
+});
+
+$("#renameModalButton").click(function () {
+    submitRenameFile();
+});
+
 
 // If the menu element is clicked
 $(".custom-menu li").click(function(){
@@ -144,9 +160,17 @@ function downloadFile() {
     document.getElementById("downloadFileId").value = currentlyRightClicked;
     $("#downloadFileSubmit").trigger("click");
 
+    // let currentDownloads = document.getElementById(currentlyRightClicked + "Download")
+    let currentDownloads = parseInt(document.getElementById(currentlyRightClicked + "Download").innerHTML.match(/\d+/)[0]) + 1;
+    let sub = "times";
+
+    if (currentDownloads == 1) sub = "time";
+    document.getElementById(currentlyRightClicked + "Download").innerHTML = "| " + currentDownloads + " " + sub;
+
 }
 
 function deleteFile() {
+    document.getElementById("deleteFileNameSuggestion").innerHTML = currentlyRightClickedName;
     deleteModal.style.display = "block";
 }
 

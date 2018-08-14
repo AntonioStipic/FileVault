@@ -78,6 +78,27 @@ class Model_File {
         return $success;
     }
 
+    public function downloaded() {
+//        UPDATE Orders SET Quantity = Quantity + 1 WHERE ...
+
+        $success = false;
+
+        $db = new DB_Connection();
+        $conn = $db->conn;
+
+        $stmt = $conn->prepare("UPDATE assets SET download=download + 1 WHERE uuid=?");
+
+        if ($stmt->execute([$this->uuid])) {
+            $success = true;
+        } else {
+            $success = false;
+        }
+
+        $conn = null;
+
+        return $success;
+    }
+
     public function __get($property) {
         if (property_exists($this, $property)) {
             return $this->$property;

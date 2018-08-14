@@ -42,6 +42,10 @@ class Controller_Home extends Lib_Controller {
     function download($fileId) {
         $file = new Model_File($fileId);
         $path = $file->path;
+
+        $file->downloaded();
+//        $this->__construct();
+
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
         header('Content-Disposition: attachment; filename="'.basename($path).'"');
@@ -50,7 +54,9 @@ class Controller_Home extends Lib_Controller {
         header('Pragma: public');
         header('Content-Length: ' . filesize($path));
         readfile($path);
-        exit;
+
+        $this->data["files"] = [];
+
     }
 
     function upload() {

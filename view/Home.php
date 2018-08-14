@@ -34,6 +34,7 @@
                         <td class="fileListHeaderName orderBy" onclick="sortBy('title')">Name</td>
                         <td class="fileListHeaderOwner orderBy" onclick="sortBy('owner')">| Owner</td>
                         <td class="fileListHeaderUploadTime orderBy" onclick="sortBy('upload_time')">| Upload time</td>
+                        <td class="fileListHeaderDownload orderBy" onclick="sortBy('download')">| Download</td>
                         <td class="fileListHeaderSize orderBy" onclick="sortBy('size')">| Size</td>
                     </tr>
                 </table>
@@ -94,6 +95,7 @@
                         <td class="fileListHeaderName"><i class="fa fa-file"></i> ' . $data["files"][$i]["title"] . $data["files"][$i]["extension"] . '</td>
                         <td class="fileListHeaderOwner">| ' . $userInfo->username . '</td>
                         <td class="fileListHeaderUploadTime">| ' . $data["files"][$i]["upload_time"] . '</td>
+                        <td class="fileListHeaderDownload" id="' . $data["files"][$i]["uuid"] . 'Download">| ' . $data["files"][$i]["download"] . (($data["files"][$i]["download"] == 1)?" time":" times") . '</td>
                         <td class="fileListHeaderSize">| ' . Model_File::formatSizeUnits($data["files"][$i]["size"]) . '</td>
                     </tr>';
                     }
@@ -168,6 +170,7 @@
                 <span class="close">&times;</span>
                 <div class="modalContainer">
                     <h3>Are you sure you want to delete this file?</h3>
+                    <p><i id="deleteFileNameSuggestion"></i></p>
                     <button class="blueButton redButton" onclick="submitDeleteFile();">Yes</button>
                     <button class="blueButton pointer" onclick="deleteModal.style.display = 'none';">No</button>
                 </div>
@@ -181,7 +184,7 @@
                 <div class="modalContainer">
                     <h3>Rename file:</h3>
                     <input type="text" id="renameModalName" class="inputHeight" name="renameModalName" spellcheck="false"><br>
-                    <button class="blueButton" onclick="submitRenameFile();">OK</button>
+                    <button class="blueButton" id="renameModalButton">OK</button>
                 </div>
             </div>
         </div>

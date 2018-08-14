@@ -51,8 +51,8 @@ class Model_Home extends Lib_Model {
         #echo "<br>";
         $uuid = $_SESSION["user"];
 //        $stmt = $conn->prepare("SELECT *, LOCATE(?, title) FROM assets WHERE owner=? ORDER BY " . $sortBy);
-        $stmt = $conn->prepare("SELECT * FROM assets WHERE (LOCATE(?, title) > 0 AND owner=?) ORDER BY " . $sortBy);
-        $stmt->execute([$phrase, $uuid]);
+        $stmt = $conn->prepare("SELECT * FROM assets WHERE ((LOCATE(?, title) > 0 OR LOCATE(?, extension) > 0) AND owner=?) ORDER BY " . $sortBy);
+        $stmt->execute([$phrase, $phrase, $uuid]);
 
 
         $files = $stmt->fetchAll();
