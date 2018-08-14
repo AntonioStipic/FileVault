@@ -1,6 +1,7 @@
 let uploadModal = document.getElementById("uploadModal");
 let deleteModal = document.getElementById("deleteModal");
 let renameModal = document.getElementById("renameModal");
+let shareModal = document.getElementById("shareModal");
 
 // Get the button that opens the modal
 let btn = document.getElementById("uploadButton");
@@ -9,6 +10,7 @@ let btn = document.getElementById("uploadButton");
 let uploadSpan = document.getElementsByClassName("close")[0];
 let deleteSpan = document.getElementsByClassName("close")[1];
 let renameSpan = document.getElementsByClassName("close")[2];
+let shareSpan = document.getElementsByClassName("close")[3];
 
 // When the user clicks on the button, open the modal
 btn.onclick = function() {
@@ -29,6 +31,10 @@ renameSpan.onclick = function () {
     renameModal.style.display = "none";
 }
 
+shareSpan.onclick = function () {
+    shareModal.style.display = "none";
+}
+
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == uploadModal) {
@@ -38,6 +44,8 @@ window.onclick = function(event) {
         deleteModal.style.display = "none";
     } else if (event.target == renameModal) {
         renameModal.style.display = "none";
+    } else if (event.target == shareModal) {
+        shareModal.style.display = "none";
     }
 }
 
@@ -148,7 +156,7 @@ $(".custom-menu li").click(function(){
         // A case for each action. Your actions here
         case "delete": deleteFile(); break;
         case "rename": renameFileModal(); break;
-        case "third": alert("third"); break;
+        case "share": shareFile(); break;
     }
 
     // Hide it AFTER the action was triggered
@@ -167,6 +175,10 @@ function downloadFile() {
     if (currentDownloads == 1) sub = "time";
     document.getElementById(currentlyRightClicked + "Download").innerHTML = "| " + currentDownloads + " " + sub;
 
+}
+
+function shareFile() {
+    shareModal.style.display = "block";
 }
 
 function deleteFile() {

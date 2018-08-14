@@ -190,6 +190,18 @@
             </div>
         </div>
 
+        <!-- SHARE MODAL -->
+        <div id="shareModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="modalContainer">
+                    <h3>Share file:</h3>
+                    <input type="text" id="renameModalName" class="inputHeight" name="renameModalName" spellcheck="false"><br>
+                    <button class="blueButton" id="renameModalButton">OK</button>
+                </div>
+            </div>
+        </div>
+
 
         <!-- Functions -->
         <form method="POST" style="display: none">
