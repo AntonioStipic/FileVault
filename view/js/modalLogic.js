@@ -64,22 +64,39 @@ $("#shareSelector").keypress(function() {
     let data = {"action": "shareRecommed", "name": value};
 
     let suggestions = document.getElementById("shareSuggestions");
-    let htmlToAdd = "";
     $.post("/action", data,
         function(data){
             data = JSON.parse(data);
-
-            console.log(data);
             suggestions.innerHTML = "";
             for (let i = 0; i < data.length; i++) {
-                // htmlToAdd += '<option value="' + data[i]["username"] + '">';
                 let option = document.createElement("option");
+                // option.value = data[i]["uuid"];
+                // option.label = data[i]["username"];
                 option.value = data[i]["username"];
+                // option.dataValue = data[i]["uuid"];
+
+
+                $(option).attr("data-value",data[i]["uuid"]);
                 suggestions.appendChild(option);
+
+
             }
 
             // if (oldHtml != htmlToAdd) document.getElementById("shareSuggestions").innerHTML = htmlToAdd;
         });
+});
+
+$("#shareModalButtonAdd").click(function () {
+    console.log($("#shareSelector").val());
+
+    let tmpUser = $("#shareSelector").val();
+    $("#shareSelector").val("");
+
+    let shareSelectedValue = $("#shareSelected").val();
+    shareSelectedValue += (tmpUser + ", ");
+
+    $("#shareSelected").val(shareSelectedValue);
+
 });
 
 

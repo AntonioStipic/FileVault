@@ -41,7 +41,7 @@ class Model_User {
         $conn = $db->conn;
 
 //        $stmt = $conn->prepare("SELECT *, LOCATE(?, title) FROM assets WHERE owner=? ORDER BY " . $sortBy);
-        $stmt = $conn->prepare("SELECT uuid, username FROM users WHERE (LOCATE(?, username) > 0)");
+        $stmt = $conn->prepare("SELECT uuid, username FROM users WHERE (LOCATE(?, username) > 0) LIMIT 10");
         $stmt->execute([$name]);
 
 
