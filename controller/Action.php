@@ -2,7 +2,7 @@
 
 class Controller_Action extends Lib_Controller {
 
-    protected $actions = ["logout", "upload", "download", "delete", "rename", "sort", "search", "shareRecommed"];
+    protected $actions = ["logout", "upload", "download", "delete", "rename", "sort", "search", "shareRecommed", "share"];
 
     function __construct() {
         parent::__construct();
@@ -34,6 +34,8 @@ class Controller_Action extends Lib_Controller {
             header("Location: /home?search=" . $_POST["phrase"]);
         } else if ($action == "shareRecommed") {
             $this->findUser($_POST["name"]);
+        } else if ($action == "share") {
+            $this->shareFile($_POST["fileId"], $_POST["users"]);
         }
 
     }
@@ -46,6 +48,23 @@ class Controller_Action extends Lib_Controller {
         $users = json_encode($users);
 
         print_r($users);
+    }
+
+    function shareFile($fileId, $users) {
+        echo $fileId;
+
+//        print_r($users);
+
+        $users = str_replace("<b>", "", $users);
+        $users = str_replace("</b>", "", $users);
+
+        $usernames = explode(", ", $users);
+
+        $file = new Model_File("");
+
+        if ($file->shareFile($fileId, $usernames)) {
+
+        }
     }
 
     function renameFile($fileId, $fileName) {

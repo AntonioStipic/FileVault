@@ -14,6 +14,7 @@
     </head>
     <body>
         <?php include "Header.php"; ?>
+        <div hidden id="userUuid"><?php echo $data["user"]["uuid"]; ?></div>
         <div class="homeHeader">
             Hello, <?php echo $data["user"]["username"]; ?>!
 
@@ -137,7 +138,7 @@
                 <span class="close">&times;</span>
                 <div class="modalContainer">
                     <h3 class="alignLeft">Share to:</h3>
-                    <input type="text" id="shareSelected" class="inputHeight shareSelected" spellcheck="false" disabled><br>
+                    <div id="shareSelected" class="inputHeight shareSelected"></div>
                     <input type="text" id="shareSelector" class="inputHeight" spellcheck="false" list="shareSuggestions"><br>
                     <datalist id="shareSuggestions">
                     </datalist>

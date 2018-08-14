@@ -105,6 +105,28 @@ class Model_File {
         return $success;
     }
 
+    function shareFile($fileId, $usernames) {
+
+        $db = new DB_Connection();
+        $conn = $db->conn;
+
+        for ($i = 0; $i < count($usernames); $i++) {
+            $tmpUser = new Model_User($usernames[$i]);
+
+            $tmpUserUuid = $tmpUser->uuid;
+
+            $stmt = $conn->prepare("INSERT INTO relations VALUES (?, ?)");
+
+            try {
+                $stmt->execute([$tmpUserUuid, $fileId]);
+            } catch (Exception $e) {
+                echo "Err";
+            }
+
+        }
+
+    }
+
     public function __get($property) {
         if (property_exists($this, $property)) {
             return $this->$property;

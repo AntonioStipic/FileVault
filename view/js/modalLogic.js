@@ -32,12 +32,10 @@ renameSpan.onclick = function () {
 }
 
 shareSpan.onclick = function () {
+    $("#shareSelected").html("");
+    $("#shareSelector").val("");
     shareModal.style.display = "none";
 }
-
-setTimeout(function () {
-
-}, 1000)
 
 $("#searchBar").focus();
 let input = document.getElementById("searchBar");
@@ -49,7 +47,6 @@ document.getElementById("searchBar").addEventListener("search", function(event) 
     search();
 });
 
-
 $("#shareSelector").keypress(function() {
     document.getElementById("shareSuggestions").innerHTML = "";
     let value = $("#shareSelector").val();
@@ -57,6 +54,8 @@ $("#shareSelector").keypress(function() {
     if ($("#shareSelector").value == "") {
         document.getElementById("shareModalButtonAdd").disabled = true;
     } else {
+
+
         document.getElementById("shareModalButtonAdd").disabled = false;
     }
 
@@ -68,16 +67,23 @@ $("#shareSelector").keypress(function() {
         function(data){
             data = JSON.parse(data);
             suggestions.innerHTML = "";
+
+            let shareSelectedValue = $("#shareSelected").html();
+
+            let userUuid = document.getElementById("userUuid").innerHTML;
             for (let i = 0; i < data.length; i++) {
-                let option = document.createElement("option");
-                // option.value = data[i]["uuid"];
-                // option.label = data[i]["username"];
-                option.value = data[i]["username"];
-                // option.dataValue = data[i]["uuid"];
+
+                if (data[i]["uuid"] != userUuid && shareSelectedValue.indexOf("<b>" + data[i]["username"] + "</b>") < 0) {
+                    let option = document.createElement("option");
+                    // option.value = data[i]["uuid"];
+                    // option.label = data[i]["username"];
+                    option.value = data[i]["username"];
+                    // option.dataValue = data[i]["uuid"];
 
 
-                $(option).attr("data-value",data[i]["uuid"]);
-                suggestions.appendChild(option);
+                    $(option).attr("data-value",data[i]["uuid"]);
+                    suggestions.appendChild(option);
+                }
 
 
             }
@@ -87,16 +93,38 @@ $("#shareSelector").keypress(function() {
 });
 
 $("#shareModalButtonAdd").click(function () {
-    console.log($("#shareSelector").val());
 
     let tmpUser = $("#shareSelector").val();
     $("#shareSelector").val("");
 
-    let shareSelectedValue = $("#shareSelected").val();
-    shareSelectedValue += (tmpUser + ", ");
+    let shareSelectedValue = $("#shareSelected").html();
 
-    $("#shareSelected").val(shareSelectedValue);
+    let dot = "";
+    if (shareSelectedValue != "") dot = ", ";
+    if (shareSelectedValue.indexOf("<b>" + tmpUser + "</b>") < 0 && tmpUser != "") {
+        shareSelectedValue += (dot + "<b>" +  tmpUser + "</b>");
 
+        $("#shareSelected").html(shareSelectedValue);
+    }
+
+    let suggestions = document.getElementById("shareSuggestions");
+    suggestions.innerHTML = "";
+
+    document.getElementById("shareModalButtonAdd").disabled = true;
+});
+
+$("#shareModalButton").click(function () {
+
+    if ($("#shareSelected").html() != "") {
+        let data = {"action": "share", "fileId": currentlyRightClicked, "users": $("#shareSelected").html()};
+
+
+        $.post("/action",data,
+            function(data){
+
+                shareModal.style.display = "none";
+            });
+    }
 });
 
 
@@ -110,6 +138,8 @@ window.onclick = function(event) {
     } else if (event.target == renameModal) {
         renameModal.style.display = "none";
     } else if (event.target == shareModal) {
+        $("#shareSelected").html("");
+        $("#shareSelector").val("");
         shareModal.style.display = "none";
     }
 }

@@ -304,4 +304,10 @@ hr {
     height: 30px;
     border: 1px solid #998E8E;
     background-color: #F5EBEB;
+
+    padding-top: 8px;
+    padding-left: 10px;
+    text-align: left;
+    margin-left: 5%;
+    width: 89%;
 }
