@@ -30,10 +30,19 @@ class Model_File {
         $db = new DB_Connection();
         $conn = $db->conn;
 
-        $stmt = $conn->prepare("DELETE FROM assets WHERE uuid='$fileId'");
+        $stmt = $conn->prepare("DELETE FROM assets WHERE uuid=?");
 
-        if ($stmt->execute()) {
-           $success = true;
+        if ($stmt->execute([$fileId])) {
+
+           $stmt2 = $conn->prepare("DELETE FROM relations WHERE file_id=?");
+
+           if ($stmt2->execute([$fileId])) {
+               $success = true;
+           } else {
+               $success = false;
+           }
+
+
         }
 
         $conn = null;
@@ -79,9 +88,6 @@ class Model_File {
     }
 
     public function downloaded() {
-//        UPDATE Orders SET Quantity = Quantity + 1 WHERE ...
-
-        $success = false;
 
         $db = new DB_Connection();
         $conn = $db->conn;
@@ -105,35 +111,23 @@ class Model_File {
         }
     }
 
-    /* public function __set($property, $value) {
-        if (property_exists($this, $property)) {
-            $this->$property = $value;
-        }
-    } */
-
     public function formatSizeUnits($bytes) {
-        if ($bytes >= 1073741824)
-        {
+        if ($bytes >= 1073741824) {
             $bytes = number_format($bytes / 1073741824, 2) . " GB";
         }
-        elseif ($bytes >= 1048576)
-        {
+        else if ($bytes >= 1048576) {
             $bytes = number_format($bytes / 1048576, 2) . " MB";
         }
-        elseif ($bytes >= 1024)
-        {
+        else if ($bytes >= 1024) {
             $bytes = number_format($bytes / 1024, 2) . " KB";
         }
-        elseif ($bytes > 1)
-        {
+        else if ($bytes > 1) {
             $bytes = $bytes . " bytes";
         }
-        elseif ($bytes == 1)
-        {
+        else if ($bytes == 1) {
             $bytes = $bytes . " byte";
         }
-        else
-        {
+        else {
             $bytes = "0 bytes";
         }
 

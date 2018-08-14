@@ -140,6 +140,7 @@
         <ul class="custom-menu">
             <li data-action="download"><i class="fa fa-download"></i> Download</li>
             <li data-action="rename"><i class="fa fa-pencil"></i> Rename</li>
+            <li data-action="share"><i class="fa fa-share"></i> Share</li>
             <hr>
             <li data-action="delete" class="red"><i class="fa fa-trash"></i> Delete</li>
 

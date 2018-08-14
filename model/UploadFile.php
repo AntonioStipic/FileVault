@@ -61,7 +61,14 @@ class Model_UploadFile
         $stmt = $conn->prepare("INSERT INTO assets VALUES (?, ?, ?, ?, 0, ?, ?, ?, ?)");
 
         if ($stmt->execute([$uuid, $owner, $name, $extension, $this->fileSecure, $path, $datetime, $size])) {
-            echo "Successfully uploaded!";
+
+            $stmt2 = $conn->prepare("INSERT INTO relations VALUES (?, ?)");
+            if ($stmt2->execute([$owner, $uuid])) {
+                echo "Successfully uploaded!";
+            } else {
+                echo "Nope2";
+            }
+
         } else {
             echo "Nope";
         }
