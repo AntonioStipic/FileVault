@@ -383,6 +383,7 @@ function infoFile() {
 
     $.post("/action",data,
         function(data){
+            // console.log(data);
             data = JSON.parse(data);
 
             document.getElementById("infoID").value = data["uuid"];
@@ -391,6 +392,19 @@ function infoFile() {
             document.getElementById("infoSize").value = data["size"];
             document.getElementById("infoOwner").value = data["owner"];
             document.getElementById("infoUpload").value = data["upload_time"];
+
+            let textAreaValue = "";
+            let userUuid = document.getElementById("userUuid").innerHTML;
+            for (let i = 0; i < data["sharedTo"].length; i++) {
+
+                if (data["sharedTo"][i]["uuid"] != userUuid) {
+                    textAreaValue += (data["sharedTo"][i]["username"] + "\n");
+                }
+            }
+
+            if (textAreaValue == "") textAreaValue = "No one";
+
+            document.getElementById("infoShared").value = textAreaValue;
 
         });
 

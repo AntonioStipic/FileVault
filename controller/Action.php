@@ -56,7 +56,17 @@ class Controller_Action extends Lib_Controller {
         $uploadTime = date("M jS, Y - H:i", strtotime($uploadTime));
 
 
-        echo "{\"uuid\": \"$uuid\", \"name\": \"$name\", \"download\": \"$download\", \"size\": \"$size\", \"owner\": \"$owner\", \"upload_time\": \"$uploadTime\"}";
+        $db = new DB_Connection();
+        $conn = $db->conn;
+
+        $stmt = $conn->prepare("SELECT uuid, username FROM relations INNER JOIN users ON relations.user_id=users.uuid WHERE file_id=?");
+        $stmt->execute([$fileId]);
+
+        $users = $stmt->fetchAll();
+
+        $users = json_encode($users);
+
+        echo "{\"uuid\": \"$uuid\", \"name\": \"$name\", \"download\": \"$download\", \"size\": \"$size\", \"owner\": \"$owner\", \"upload_time\": \"$uploadTime\", \"sharedTo\": $users}";
 
     }
 

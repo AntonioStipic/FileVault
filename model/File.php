@@ -122,16 +122,23 @@ class Model_File {
             $tmpUser = new Model_User($usernames[$i]);
 
             $tmpUserUuid = $tmpUser->uuid;
+            $stmtTmp = $conn->prepare("SELECT * FROM relations WHERE (user_id=? AND file_id=?)");
+            $stmtTmp->execute([$tmpUserUuid, $fileId]);
 
-            $stmt = $conn->prepare("INSERT INTO relations VALUES (NULL, ?, ?)");
+            if ($stmtTmp->rowCount() == 0) {
+                $stmt = $conn->prepare("INSERT INTO relations VALUES (NULL, ?, ?)");
 
-            try {
-                $stmt->execute([$tmpUserUuid, $fileId]);
-            } catch (Exception $e) {
-                echo "Err";
+                try {
+                    $stmt->execute([$tmpUserUuid, $fileId]);
+                } catch (Exception $e) {
+                    echo "Err";
+                }
             }
-
         }
+
+    }
+
+    function sharedTo($fileId) {
 
     }
 
