@@ -317,7 +317,7 @@ function submitRenameFile() {
             data = JSON.parse(data);
             if (data["success"] == true) {
                 renameModal.style.display = "none";
-                location.reload();
+                // location.reload();
             }
         });
 }
@@ -325,20 +325,14 @@ function submitRenameFile() {
 function search() {
     let phrase = document.getElementById("searchBar").value;
 
-    /* let data = {"action": "search", "phrase": phrase};
-
-    $.post("/action",data,
+    let data = {"action": "search", "phrase": phrase};
+    $.post("/action", data,
         function(data){
-            console.log(data);
-        data = JSON.parse(data);
-            if (data["success"] == true) {
-                renameModal.style.display = "none";
-                location.reload();
-            }
+            // console.log(data);
+            document.getElementById("refreshingList").innerHTML = data;
         });
-    */
 
-    window.location.href = "/home?search=" + phrase;
+    // window.location.href = "/home?search=" + phrase;
 }
 
 function sortBy(what) {

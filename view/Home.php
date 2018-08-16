@@ -41,7 +41,7 @@
                     </tr>
                 </table>
                 <hr>
-                <table class="fileListHeader fileTable">
+                <table class="fileListHeader fileTable" id="refreshingList">
 
                     <?php
 
