@@ -64,6 +64,7 @@
             <br><br>
             <input type="submit" value="Sign Up" class="blueButton">
         </form>
+        <a id="signup" href="/login">Sign In</a>
         <br>
     </div>
 

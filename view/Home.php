@@ -18,7 +18,7 @@
         <div hidden id="userUuid"><?php echo $data["user"]["uuid"]; ?></div>
         <div hidden id="userUsername"><?php echo $data["user"]["username"]; ?></div>
         <div class="homeHeader">
-            Hello, <?php echo $data["user"]["username"]; ?>!
+            <span id="greeting">Hello, <i><?php echo $data["user"]["username"]; ?>!</i></span>
 
             <div class="notClickable width5vw"></div>
             <div class="homeHeaderButton">
@@ -56,7 +56,7 @@
                         $userInfo = new Model_UserInfo($data["files"][$i]["owner"]);
                         echo '<tr class="asset right-click">
                         <td style="display: none" class="id">' . $data["files"][$i]["uuid"] . '</td>
-                        <td class="fileListHeaderName"><i class="fa fa-file"></i>&nbsp;&nbsp; ' . $data["files"][$i]["title"] . $data["files"][$i]["extension"] . '</td>
+                        <td class="fileListHeaderName"><i class="fa fa-file">&nbsp;&nbsp;</i> ' . $data["files"][$i]["title"] . $data["files"][$i]["extension"] . '</td>
                         <td class="fileListHeaderOwner">| ' . $userInfo->username . '</td>
                         <td class="fileListHeaderUploadTime">| ' . date("M jS, Y - H:i", strtotime($data["files"][$i]["upload_time"])) . '</td>
                         <td class="fileListHeaderDownload" id="' . $data["files"][$i]["uuid"] . 'Download">| ' . $data["files"][$i]["download"] . (($data["files"][$i]["download"] == 1)?" time":" times") . '</td>
@@ -186,7 +186,7 @@
                 <div class="modalContainer">
                     <h3>New Folder:</h3>
                     <input type="text" id="newFolderModalName" class="inputHeight" name="renameModalName" spellcheck="false"><br>
-                    <button class="blueButton" id="renameModalButton">Create</button>
+                    <button class="blueButton" id="newFolderModalButton">Create</button>
                 </div>
             </div>
         </div>

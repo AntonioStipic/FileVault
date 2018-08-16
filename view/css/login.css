@@ -47,3 +47,12 @@
 .loginTitle {
     font-size: 1.3em;
 }
+
+#signup {
+    cursor:pointer;
+    color:blue;
+    text-decoration:underline;
+    font-size: 0.8em;
+    float: left;
+    margin-left: 5%;
+}

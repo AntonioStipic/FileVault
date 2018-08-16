@@ -37,6 +37,7 @@ renameSpan.onclick = function () {
 
 newFolderSpan.onclick = function () {
     newFolderModal.style.display = "none";
+    $("#newFolderModalName").val("");
 }
 
 shareSpan.onclick = function () {
@@ -178,6 +179,7 @@ window.onclick = function(event) {
         infoModal.style.display = "none";
     } else if (event.target == newFolderModal) {
         newFolderModal.style.display = "none";
+        $("#newFolderModalName").val("");
     }
 }
 
@@ -223,8 +225,33 @@ $("#newFolderButton").on("click", function () {
 
 function newFolder() {
     newFolderModal.style.display = "block";
+
+    document.getElementById("newFolderModalButton").disabled = true;
 }
 
+
+$("#newFolderModalName").keyup(function() {
+    if ($("#newFolderModalName").val() != "") {
+        document.getElementById("newFolderModalButton").disabled = false;
+    } else {
+        document.getElementById("newFolderModalButton").disabled = true;
+    }
+});
+
+
+$("#newFolderModalButton").on("click", function () {
+    let folderName = $("#newFolderModalName").val();
+    console.log(folderName);
+
+
+    let data = {"action": "createFolder", "folderName": folderName};
+
+
+    $.post("/action",data,
+        function(data){
+            console.log(data);
+        });
+});
 
 
 

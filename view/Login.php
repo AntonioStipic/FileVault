@@ -32,6 +32,8 @@
             <br><br>
             <input type="submit" value="Sign In" class="blueButton">
         </form>
+
+        <a id="signup" href="/register">Sign Up</a>
         <br>
     </div>
 

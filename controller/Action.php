@@ -2,7 +2,7 @@
 
 class Controller_Action extends Lib_Controller {
 
-    protected $actions = ["logout", "upload", "download", "delete", "rename", "sort", "search", "shareRecommed", "share", "fileInfo"];
+    protected $actions = ["logout", "upload", "download", "delete", "rename", "sort", "search", "shareRecommed", "share", "fileInfo", "createFolder"];
 
     function __construct() {
         parent::__construct();
@@ -37,10 +37,22 @@ class Controller_Action extends Lib_Controller {
             $this->findUser($_POST["name"]);
         } else if ($action == "share") {
             $this->shareFile($_POST["fileId"], $_POST["users"]);
-        } else if ($action = "fileInfo") {
+        } else if ($action == "fileInfo") {
             $this->fileInfo($_POST["fileId"]);
+        } else if ($action == "createFolder") {
+            $this->createFolder($_POST["folderName"]);
         }
 
+    }
+
+    function createFolder($folderName) {
+        $file = new Model_File("");
+
+        if ($file->createFolder($folderName)) {
+            echo "success";
+        } else {
+            echo "nope";
+        }
     }
 
     function fileInfo($fileId) {
@@ -117,7 +129,7 @@ class Controller_Action extends Lib_Controller {
         }
 
         if ($file->renameFile($fileName)) {
-            $files = Model_Home::getFiles($sortBy);
+            $files = Model_Home::getFiles($sortBy, "down");
             $this->data["files"] = $files;
 
             $this->echoFiles();
@@ -163,7 +175,7 @@ class Controller_Action extends Lib_Controller {
             $userInfo = new Model_UserInfo($this->data["files"][$i]["owner"]);
             echo '<tr class="asset right-click">
                         <td style="display: none" class="id">' . $this->data["files"][$i]["uuid"] . '</td>
-                        <td class="fileListHeaderName"><i class="fa fa-file"></i>&nbsp;&nbsp; ' . $this->data["files"][$i]["title"] . $this->data["files"][$i]["extension"] . '</td>
+                        <td class="fileListHeaderName"><i class="fa fa-file">&nbsp;&nbsp;</i> ' . $this->data["files"][$i]["title"] . $this->data["files"][$i]["extension"] . '</td>
                         <td class="fileListHeaderOwner">| ' . $userInfo->username . '</td>
                         <td class="fileListHeaderUploadTime">| ' . date("M jS, Y - H:i", strtotime($this->data["files"][$i]["upload_time"])) . '</td>
                         <td class="fileListHeaderDownload" id="' . $this->data["files"][$i]["uuid"] . 'Download">| ' . $this->data["files"][$i]["download"] . (($this->data["files"][$i]["download"] == 1)?" time":" times") . '</td>

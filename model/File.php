@@ -95,6 +95,29 @@ class Model_File {
         return $success;
     }
 
+    public function createFolder($folderName) {
+
+
+        $uuid = substr(md5(uniqid(mt_rand(), true)), 0, 8);
+
+        $db = new DB_Connection();
+        $conn = $db->conn;
+
+        $stmt = $conn->prepare("INSERT INTO folders VALUES (?, ?, ?, ?)");
+
+        if ($stmt->execute([$uuid, $folderName, "/uploads/" . $_SESSION["user"], $_SESSION["user"]])) {
+            $success = true;
+        } else {
+            $success = false;
+        }
+
+        $conn = null;
+
+        return $success;
+
+
+    }
+
     public function downloaded() {
 
         $db = new DB_Connection();
