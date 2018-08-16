@@ -2,6 +2,8 @@ let uploadModal = document.getElementById("uploadModal");
 let deleteModal = document.getElementById("deleteModal");
 let renameModal = document.getElementById("renameModal");
 let shareModal = document.getElementById("shareModal");
+let infoModal = document.getElementById("infoModal");
+let newFolderModal = document.getElementById("newFolderModal");
 
 // Get the button that opens the modal
 let btn = document.getElementById("uploadButton");
@@ -11,6 +13,8 @@ let uploadSpan = document.getElementsByClassName("close")[0];
 let deleteSpan = document.getElementsByClassName("close")[1];
 let renameSpan = document.getElementsByClassName("close")[2];
 let shareSpan = document.getElementsByClassName("close")[3];
+let infoSpan = document.getElementsByClassName("close")[4];
+let newFolderSpan = document.getElementsByClassName("close")[5];
 
 // When the user clicks on the button, open the modal
 btn.onclick = function() {
@@ -31,10 +35,18 @@ renameSpan.onclick = function () {
     renameModal.style.display = "none";
 }
 
+newFolderSpan.onclick = function () {
+    newFolderModal.style.display = "none";
+}
+
 shareSpan.onclick = function () {
     $("#shareSelected").html("<i>Select username</i>");
     $("#shareSelector").val("");
     shareModal.style.display = "none";
+}
+
+infoSpan.onclick = function () {
+    infoModal.style.display = "none";
 }
 
 $("#searchBar").focus();
@@ -132,6 +144,23 @@ $("#shareModalButton").click(function () {
 });
 
 
+
+
+
+
+$("#searchBar").keyup(function() {
+    let searchLength = $("#searchBar").val().length;
+
+    if (searchLength > 2 || searchLength == 0) {
+        search();
+    }
+});
+
+
+
+
+
+
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == uploadModal) {
@@ -145,8 +174,16 @@ window.onclick = function(event) {
         $("#shareSelected").html("<i>Select username</i>");
         $("#shareSelector").val("");
         shareModal.style.display = "none";
+    } else if (event.target == infoModal) {
+        infoModal.style.display = "none";
+    } else if (event.target == newFolderModal) {
+        newFolderModal.style.display = "none";
     }
 }
+
+$("#infoModalButton").on("click", function () {
+    infoModal.style.display = "none";
+});
 
 $("#dropArea").click(function() {
     document.getElementById("fileToUpload").value = "";
@@ -178,6 +215,14 @@ function clearFile() {
 
     document.getElementById("selectedFileText").style.display = "none";
     document.getElementById("notSelectedFileText").style.display = "block";
+}
+
+$("#newFolderButton").on("click", function () {
+    newFolder();
+});
+
+function newFolder() {
+    newFolderModal.style.display = "block";
 }
 
 
@@ -303,10 +348,10 @@ $(".custom-menu li").click(function(){
     switch($(this).attr("data-action")) {
 
         case "download": downloadFile(); break;
-        // A case for each action. Your actions here
         case "delete": deleteFile(); break;
         case "rename": renameFileModal(); break;
         case "share": shareFile(); break;
+        case "info": infoFile(); break;
     }
 
     // Hide it AFTER the action was triggered
@@ -330,6 +375,27 @@ function downloadFile() {
 function shareFile() {
     document.getElementById("shareModalButtonAdd").disabled = true;
     shareModal.style.display = "block";
+}
+
+function infoFile() {
+
+    let data = {"action": "fileInfo", "fileId": currentlyRightClicked};
+
+    $.post("/action",data,
+        function(data){
+            data = JSON.parse(data);
+
+            document.getElementById("infoID").value = data["uuid"];
+            document.getElementById("infoName").value = data["name"];
+            document.getElementById("infoDownload").value = data["download"];
+            document.getElementById("infoSize").value = data["size"];
+            document.getElementById("infoOwner").value = data["owner"];
+            document.getElementById("infoUpload").value = data["upload_time"];
+
+        });
+
+
+    infoModal.style.display = "block";
 }
 
 function deleteFile() {
@@ -365,7 +431,7 @@ function submitRenameFile() {
 
     $.post("/action",data,
         function(data){
-        console.log(data);
+        // console.log(data);
             document.getElementById("refreshingList").innerHTML = data;
             renameModal.style.display = "none";
         });
@@ -405,3 +471,18 @@ function sortBy(what) {
 
     // $("#sortSubmit").trigger("click");
 }
+
+let dropArea = document.getElementById("dropArea");
+dropArea.ondragover = dropArea.ondragenter = function(evt) {
+    evt.preventDefault();
+
+    dropArea.style.backgroundColor = "#F5EBEB";
+};
+
+dropArea.ondrop = function(evt) {
+    // pretty simple -- but not for IE :(
+    document.getElementById("fileToUpload").files = evt.dataTransfer.files;
+    evt.preventDefault();
+
+    dropArea.style.backgroundColor = "#fefefe";
+};

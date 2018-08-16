@@ -6,6 +6,10 @@ class Model_File {
     protected $title;
     protected $extension;
     protected $path;
+    protected $download;
+    protected $size;
+    protected $owner;
+    protected $uploadTime;
 
     function __construct($fileId) {
         $db = new DB_Connection();
@@ -22,6 +26,10 @@ class Model_File {
         $this->title = $file["title"];
         $this->extension = $file["extension"];
         $this->path = $file["path"];
+        $this->download = $file["download"];
+        $this->size = $this->formatSizeUnits($file["size"]);
+        $this->owner = $file["owner"];
+        $this->uploadTime = $file["upload_time"];
     }
 
     function deleteFile($fileId) {

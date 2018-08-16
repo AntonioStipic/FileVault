@@ -2,7 +2,7 @@
 
 class Controller_Action extends Lib_Controller {
 
-    protected $actions = ["logout", "upload", "download", "delete", "rename", "sort", "search", "shareRecommed", "share"];
+    protected $actions = ["logout", "upload", "download", "delete", "rename", "sort", "search", "shareRecommed", "share", "fileInfo"];
 
     function __construct() {
         parent::__construct();
@@ -37,9 +37,26 @@ class Controller_Action extends Lib_Controller {
             $this->findUser($_POST["name"]);
         } else if ($action == "share") {
             $this->shareFile($_POST["fileId"], $_POST["users"]);
-        } else if ($action = "refreshFiles") {
-
+        } else if ($action = "fileInfo") {
+            $this->fileInfo($_POST["fileId"]);
         }
+
+    }
+
+    function fileInfo($fileId) {
+        $file = new Model_File($fileId);
+
+        $uuid = $file->uuid;
+        $name = $file->title . $file->extension;
+        $download = $file->download;
+        $size = $file->size;
+        $owner = $file->owner;
+        $uploadTime = $file->uploadTime;
+
+        $uploadTime = date("M jS, Y - H:i", strtotime($uploadTime));
+
+
+        echo "{\"uuid\": \"$uuid\", \"name\": \"$name\", \"download\": \"$download\", \"size\": \"$size\", \"owner\": \"$owner\", \"upload_time\": \"$uploadTime\"}";
 
     }
 
@@ -138,7 +155,7 @@ class Controller_Action extends Lib_Controller {
                         <td style="display: none" class="id">' . $this->data["files"][$i]["uuid"] . '</td>
                         <td class="fileListHeaderName"><i class="fa fa-file"></i> ' . $this->data["files"][$i]["title"] . $this->data["files"][$i]["extension"] . '</td>
                         <td class="fileListHeaderOwner">| ' . $userInfo->username . '</td>
-                        <td class="fileListHeaderUploadTime">| ' . $this->data["files"][$i]["upload_time"] . '</td>
+                        <td class="fileListHeaderUploadTime">| ' . date("M jS, Y - H:i", strtotime($this->data["files"][$i]["upload_time"])) . '</td>
                         <td class="fileListHeaderDownload" id="' . $this->data["files"][$i]["uuid"] . 'Download">| ' . $this->data["files"][$i]["download"] . (($this->data["files"][$i]["download"] == 1)?" time":" times") . '</td>
                         <td class="fileListHeaderSize">| ' . Model_File::formatSizeUnits($this->data["files"][$i]["size"]) . '</td>
                     </tr>';

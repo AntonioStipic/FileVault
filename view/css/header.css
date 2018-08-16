@@ -89,3 +89,7 @@ body {
     color: #002E4A;
     min-width: 50px;
 }
+
+.width7vw {
+    width: 10vw !important;
+}
