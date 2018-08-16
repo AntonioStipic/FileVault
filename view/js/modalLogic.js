@@ -314,11 +314,9 @@ function submitRenameFile() {
 
     $.post("/action",data,
         function(data){
-            data = JSON.parse(data);
-            if (data["success"] == true) {
-                renameModal.style.display = "none";
-                // location.reload();
-            }
+        console.log(data);
+            document.getElementById("refreshingList").innerHTML = data;
+            renameModal.style.display = "none";
         });
 }
 
@@ -338,5 +336,12 @@ function search() {
 function sortBy(what) {
     document.getElementById("sortBy").value = what;
 
-    $("#sortSubmit").trigger("click");
+    let data = {"action": "sort", "sortBy": what};
+    $.post("/action", data,
+        function(data){
+            // console.log(data);
+            document.getElementById("refreshingList").innerHTML = data;
+        });
+
+    // $("#sortSubmit").trigger("click");
 }

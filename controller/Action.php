@@ -43,6 +43,14 @@ class Controller_Action extends Lib_Controller {
 
     }
 
+
+    function sort($sortBy) {
+        $files = Model_Home::getFiles($sortBy);
+        $this->data["files"] = $files;
+
+        $this->echoFiles();
+    }
+
     function findUser($name) {
         $user = new Model_User("");
 
@@ -75,15 +83,17 @@ class Controller_Action extends Lib_Controller {
     function renameFile($fileId, $fileName) {
         $file = new Model_File($fileId);
 
-        $files = Model_Home::getFiles($_POST["sortBy"]);
-        $this->data["files"] = $files;
+        if (isset($_POST["sortBy"])) {
+            $sortBy = $_POST["sortBy"];
+        } else {
+            $sortBy = "title";
+        }
 
         if ($file->renameFile($fileName)) {
-            $data = '{"success": true}';
-            echo $data;
-        } else {
-            $data = '{"success": false}';
-            echo $data;
+            $files = Model_Home::getFiles($sortBy);
+            $this->data["files"] = $files;
+
+            $this->echoFiles();
         }
     }
 
@@ -98,17 +108,7 @@ class Controller_Action extends Lib_Controller {
         $files = Model_Home::searchFiles($phrase, $sortBy);
         $this->data["files"] = $files;
 
-        for ($i = 0; $i < count($this->data["files"]); $i++) {
-            $userInfo = new Model_UserInfo($this->data["files"][$i]["owner"]);
-            echo '<tr class="asset right-click">
-                        <td style="display: none" class="id">' . $this->data["files"][$i]["uuid"] . '</td>
-                        <td class="fileListHeaderName"><i class="fa fa-file"></i> ' . $this->data["files"][$i]["title"] . $this->data["files"][$i]["extension"] . '</td>
-                        <td class="fileListHeaderOwner">| ' . $userInfo->username . '</td>
-                        <td class="fileListHeaderUploadTime">| ' . $this->data["files"][$i]["upload_time"] . '</td>
-                        <td class="fileListHeaderDownload" id="' . $this->data["files"][$i]["uuid"] . 'Download">| ' . $this->data["files"][$i]["download"] . (($this->data["files"][$i]["download"] == 1)?" time":" times") . '</td>
-                        <td class="fileListHeaderSize">| ' . Model_File::formatSizeUnits($this->data["files"][$i]["size"]) . '</td>
-                    </tr>';
-        }
+        $this->echoFiles();
     }
 
     function deleteFile($fileId) {
@@ -127,6 +127,21 @@ class Controller_Action extends Lib_Controller {
                 $data = '{"success": false}';
                 echo $data;
             }
+        }
+    }
+
+
+    function echoFiles() {
+        for ($i = 0; $i < count($this->data["files"]); $i++) {
+            $userInfo = new Model_UserInfo($this->data["files"][$i]["owner"]);
+            echo '<tr class="asset right-click">
+                        <td style="display: none" class="id">' . $this->data["files"][$i]["uuid"] . '</td>
+                        <td class="fileListHeaderName"><i class="fa fa-file"></i> ' . $this->data["files"][$i]["title"] . $this->data["files"][$i]["extension"] . '</td>
+                        <td class="fileListHeaderOwner">| ' . $userInfo->username . '</td>
+                        <td class="fileListHeaderUploadTime">| ' . $this->data["files"][$i]["upload_time"] . '</td>
+                        <td class="fileListHeaderDownload" id="' . $this->data["files"][$i]["uuid"] . 'Download">| ' . $this->data["files"][$i]["download"] . (($this->data["files"][$i]["download"] == 1)?" time":" times") . '</td>
+                        <td class="fileListHeaderSize">| ' . Model_File::formatSizeUnits($this->data["files"][$i]["size"]) . '</td>
+                    </tr>';
         }
     }
 }
