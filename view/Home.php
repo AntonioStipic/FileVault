@@ -34,7 +34,7 @@
         </div>
         <div class="container">
 
-            <input type="search" class="searchBar" id="searchBar" value="<?php echo $data["search"]; ?>"> <button class="searchButton" id="searchButton"><i class="fa fa-search"></i></button><br><br>
+            <input type="search" class="searchBar" id="searchBar" value="<?php echo $data["search"]; ?>"> <button class="searchButton" id="searchButton"><i class="fa fa-search white"></i></button><br><br>
             <div class="fileList">
 
                 <table class="fileListHeader slightMargin">
@@ -56,7 +56,7 @@
                         $userInfo = new Model_UserInfo($data["files"][$i]["owner"]);
                         echo '<tr class="asset right-click">
                         <td style="display: none" class="id">' . $data["files"][$i]["uuid"] . '</td>
-                        <td class="fileListHeaderName"><i class="fa fa-file"></i> ' . $data["files"][$i]["title"] . $data["files"][$i]["extension"] . '</td>
+                        <td class="fileListHeaderName"><i class="fa fa-file"></i>&nbsp;&nbsp; ' . $data["files"][$i]["title"] . $data["files"][$i]["extension"] . '</td>
                         <td class="fileListHeaderOwner">| ' . $userInfo->username . '</td>
                         <td class="fileListHeaderUploadTime">| ' . date("M jS, Y - H:i", strtotime($data["files"][$i]["upload_time"])) . '</td>
                         <td class="fileListHeaderDownload" id="' . $data["files"][$i]["uuid"] . 'Download">| ' . $data["files"][$i]["download"] . (($data["files"][$i]["download"] == 1)?" time":" times") . '</td>
@@ -164,14 +164,14 @@
                     <h3>File Info:</h3>
 
                     <div class="form-style-2">
-                            <label for="field1"><span>ID</span><input type="text" class="input-field" id="infoID" disabled></label>
-                            <label for="field1"><span>Name</span><input type="text" class="input-field" id="infoName" disabled></label>
-                            <label for="field2"><span>Owner</span><input type="text" class="input-field" id="infoOwner" disabled></label>
-                            <label for="field2"><span>Upload time</span><input type="text" class="input-field" id="infoUpload" disabled></label>
-                            <label for="field2"><span>Downloaded</span><input type="text" class="input-field" id="infoDownload" disabled></label>
-                            <label for="field2"><span>Size</span><input type="text" class="input-field" id="infoSize" disabled></label>
+                            <label for="field1"><span>ID:</span><input type="text" class="input-field" id="infoID" disabled></label>
+                            <label for="field1"><span>Name:</span><input type="text" class="input-field" id="infoName" disabled></label>
+                            <label for="field2"><span>Owner:</span><input type="text" class="input-field" id="infoOwner" disabled></label>
+                            <label for="field2"><span>Upload Time:</span><input type="text" class="input-field" id="infoUpload" disabled></label>
+                            <label for="field2"><span>Downloaded:</span><input type="text" class="input-field" id="infoDownload" disabled></label>
+                            <label for="field2"><span>Size:</span><input type="text" class="input-field" id="infoSize" disabled></label>
 
-                            <label for="field5"><span>Shared to</span><textarea name="field5" class="textarea-field" id="infoShared" disabled></textarea></label>
+                            <label for="field5"><span>Shared to:</span><textarea name="field5" class="textarea-field" id="infoShared" disabled></textarea></label>
 
                         <button class="blueButton" id="infoModalButton">OK</button>
                     </div>
@@ -186,7 +186,7 @@
                 <div class="modalContainer">
                     <h3>New Folder:</h3>
                     <input type="text" id="newFolderModalName" class="inputHeight" name="renameModalName" spellcheck="false"><br>
-                    <button class="blueButton" id="renameModalButton">OK</button>
+                    <button class="blueButton" id="renameModalButton">Create</button>
                 </div>
             </div>
         </div>

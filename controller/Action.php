@@ -163,7 +163,7 @@ class Controller_Action extends Lib_Controller {
             $userInfo = new Model_UserInfo($this->data["files"][$i]["owner"]);
             echo '<tr class="asset right-click">
                         <td style="display: none" class="id">' . $this->data["files"][$i]["uuid"] . '</td>
-                        <td class="fileListHeaderName"><i class="fa fa-file"></i> ' . $this->data["files"][$i]["title"] . $this->data["files"][$i]["extension"] . '</td>
+                        <td class="fileListHeaderName"><i class="fa fa-file"></i>&nbsp;&nbsp; ' . $this->data["files"][$i]["title"] . $this->data["files"][$i]["extension"] . '</td>
                         <td class="fileListHeaderOwner">| ' . $userInfo->username . '</td>
                         <td class="fileListHeaderUploadTime">| ' . date("M jS, Y - H:i", strtotime($this->data["files"][$i]["upload_time"])) . '</td>
                         <td class="fileListHeaderDownload" id="' . $this->data["files"][$i]["uuid"] . 'Download">| ' . $this->data["files"][$i]["download"] . (($this->data["files"][$i]["download"] == 1)?" time":" times") . '</td>

@@ -1,0 +1,49 @@
+.loginForm {
+    border: 2px solid #0066A2;
+    width: 24%;
+    margin-left: 38%;
+    text-align: center;
+    border-radius: 15px;
+    background-color: #D4D3D3;
+    color: #002E4A;
+    margin-top: 10vh;
+}
+
+.loginInput {
+    border: 1px solid #EAE7E7;
+    font-size: 1.2em;
+    width: 60%;
+    margin-left: 10px;
+    border-radius: 8px;
+}
+
+.blueButton {
+    background-color: #0066A2;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+#forgot {
+    cursor:pointer;
+    color:blue;
+    text-decoration:underline;
+    font-size: 0.8em;
+    float: right;
+    margin-right: 5%;
+}
+
+#forgot:hover {
+    text-decoration:none;
+    text-shadow: 1px 1px 1px #555;
+}
+
+.loginTitle {
+    font-size: 1.3em;
+}

@@ -93,3 +93,11 @@ body {
 .width7vw {
     width: 10vw !important;
 }
+
+.fa {
+    color: #0092E7;
+}
+
+.white {
+    color: white;
+}

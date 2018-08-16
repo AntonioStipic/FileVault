@@ -311,3 +311,8 @@ hr {
     margin-left: 5%;
     width: 89%;
 }
+
+.textCenter {
+    margin-left: 45%;
+    font-size: 1.2em;
+}

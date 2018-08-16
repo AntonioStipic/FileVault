@@ -282,7 +282,7 @@ var currentlyRightClickedName = "";
     });
 } */
 
-$(document).on("contextmenu",".asset", function(){
+$(document).on("contextmenu",".asset", function(event){
     currentlyRightClicked = $(this).find('.id').html();
     currentlyRightClickedName = $(this).find('.fileListHeaderName').html();
     currentlyRightClickedName = currentlyRightClickedName.substring(currentlyRightClickedName.indexOf("</i>") + 5);
@@ -466,6 +466,10 @@ function search() {
                 history.pushState(null, null, "/home?search=" + phrase);
             } else {
                 history.pushState(null, null, "/home");
+            }
+
+            if (document.getElementById("refreshingList").innerHTML == "") {
+                document.getElementById("refreshingList").innerHTML = "<br><i class='textCenter'>No search results</i>";
             }
 
     });
