@@ -83,7 +83,7 @@ class Controller_Action extends Lib_Controller {
     function renameFile($fileId, $fileName) {
         $file = new Model_File($fileId);
 
-        if (isset($_POST["sortBy"])) {
+        if (isset($_GET["sortBy"])) {
             $sortBy = $_POST["sortBy"];
         } else {
             $sortBy = "title";

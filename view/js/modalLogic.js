@@ -186,7 +186,7 @@ function clearFile() {
 var currentlyRightClicked = "";
 var currentlyRightClickedName = "";
 
-$(".asset").on("contextmenu", function (event) {
+/* $(".asset").on("contextmenu", function (event) {
 
     currentlyRightClicked = $(this).find('.id').html();
     currentlyRightClickedName = $(this).find('.fileListHeaderName').html();
@@ -210,7 +210,58 @@ $(".asset").on("contextmenu", function (event) {
         top: event.pageY - 17 + "px",
         left: event.pageX + 15 + "px"
     });
+}); */
+
+/* document.getElementsByClassName("asset").oncontextmenu = function(event){
+    currentlyRightClicked = $(this).find('.id').html();
+    currentlyRightClickedName = $(this).find('.fileListHeaderName').html();
+    currentlyRightClickedName = currentlyRightClickedName.substring(currentlyRightClickedName.indexOf("</i>") + 5);
+
+    let parser = new DOMParser;
+
+    currentlyRightClickedName = parser.parseFromString(currentlyRightClickedName, "text/html");
+    currentlyRightClickedName = currentlyRightClickedName.body.textContent;
+
+    // alert($( parent + "  > .id" ).html());
+
+    // Avoid the real one
+    event.preventDefault();
+
+    // Show contextmenu
+    $(".custom-menu").finish().toggle(100).
+
+    // In the right position (the mouse)
+    css({
+        top: event.pageY - 17 + "px",
+        left: event.pageX + 15 + "px"
+    });
+} */
+
+$(document).on("contextmenu",".asset", function(){
+    currentlyRightClicked = $(this).find('.id').html();
+    currentlyRightClickedName = $(this).find('.fileListHeaderName').html();
+    currentlyRightClickedName = currentlyRightClickedName.substring(currentlyRightClickedName.indexOf("</i>") + 5);
+
+    let parser = new DOMParser;
+
+    currentlyRightClickedName = parser.parseFromString(currentlyRightClickedName, "text/html");
+    currentlyRightClickedName = currentlyRightClickedName.body.textContent;
+
+    // alert($( parent + "  > .id" ).html());
+
+    // Avoid the real one
+    event.preventDefault();
+
+    // Show contextmenu
+    $(".custom-menu").finish().toggle(100).
+
+    // In the right position (the mouse)
+    css({
+        top: event.pageY - 17 + "px",
+        left: event.pageX + 15 + "px"
+    });
 });
+
 
 
 // If the document is clicked somewhere
@@ -328,7 +379,16 @@ function search() {
         function(data){
             // console.log(data);
             document.getElementById("refreshingList").innerHTML = data;
-        });
+            // location.replace("/home?search=" + phrase);
+            // console.log(1);
+
+            if (phrase != "") {
+                history.pushState(null, null, "/home?search=" + phrase);
+            } else {
+                history.pushState(null, null, "/home");
+            }
+
+    });
 
     // window.location.href = "/home?search=" + phrase;
 }
