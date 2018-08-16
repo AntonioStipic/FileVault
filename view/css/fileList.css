@@ -182,6 +182,10 @@
     cursor: pointer;
 }
 
+.myBlue {
+    color: #0066A2;
+}
+
 .redButton {
     background-color: #c9302c;
     cursor: pointer;
@@ -225,7 +229,9 @@ hr {
 }
 
 
-
+.grey {
+    color: #333333;
+}
 
 
 .custom-menu {

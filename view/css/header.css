@@ -101,3 +101,12 @@ body {
 .white {
     color: white;
 }
+
+.headerArrow {
+    float: right;
+    color: black;
+}
+
+.up {
+    transform: rotate(180deg);
+}

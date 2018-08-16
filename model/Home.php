@@ -23,14 +23,17 @@ class Model_Home extends Lib_Model {
         return $user;
     }
 
-    public function getFiles($sortBy) {
+    public function getFiles($sortBy, $direction) {
         $db = new DB_Connection();
         $conn = $db->conn;
         #echo "<br>";
         $uuid = $_SESSION["user"];
 //        $stmt = $conn->prepare("SELECT * FROM assets WHERE owner=? ORDER BY " . $sortBy);
 
-        $stmt = $conn->prepare("SELECT * FROM relations INNER JOIN assets ON relations.file_id=assets.uuid WHERE user_id=? ORDER BY " . $sortBy);
+
+        if ($direction == "up") $direction = "DESC";
+        else $direction = "ASC";
+        $stmt = $conn->prepare("SELECT * FROM relations INNER JOIN assets ON relations.file_id=assets.uuid WHERE user_id=? ORDER BY " . $sortBy . " " . $direction);
         $stmt->execute([$uuid]);
 
 

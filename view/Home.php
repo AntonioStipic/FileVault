@@ -23,12 +23,12 @@
             <div class="notClickable width5vw"></div>
             <div class="homeHeaderButton">
                 <button class="nakedButton" id="uploadButton">
-                    <i class="fa fa-upload"></i> Upload
+                    <i class="fa fa-upload myBlue"></i> Upload
                 </button>
             </div>
             <div class="homeHeaderButton width7vw">
                 <button class="nakedButton" id="newFolderButton">
-                    <i class="fa fa-folder"></i> New Folder
+                    <i class="fa fa-folder myBlue"></i> New Folder
                 </button>
             </div>
         </div>
@@ -39,11 +39,11 @@
 
                 <table class="fileListHeader slightMargin">
                     <tr>
-                        <td class="fileListHeaderName orderBy" onclick="sortBy('title')">Name</td>
-                        <td class="fileListHeaderOwner orderBy" onclick="sortBy('owner')">| Owner</td>
-                        <td class="fileListHeaderUploadTime orderBy" onclick="sortBy('upload_time')">| Upload time</td>
-                        <td class="fileListHeaderDownload orderBy" onclick="sortBy('download')">| Download</td>
-                        <td class="fileListHeaderSize orderBy" onclick="sortBy('size')">| Size</td>
+                        <td class="fileListHeaderName orderBy" id="fileListHeaderName">Name <i id="headerArrowName" class="fa fa-arrow-down headerArrow"></i></td>
+                        <td class="fileListHeaderOwner orderBy" id="fileListHeaderOwner">| Owner <i id="headerArrowOwner" class="fa fa-arrow-down headerArrow"></i></td>
+                        <td class="fileListHeaderUploadTime orderBy" id="fileListHeaderUpload">| Upload time <i id="headerArrowUpload" class="fa fa-arrow-down headerArrow"></i></td>
+                        <td class="fileListHeaderDownload orderBy" id="fileListHeaderDownload">| Download <i id="headerArrowDownload" class="fa fa-arrow-down headerArrow"></i></td>
+                        <td class="fileListHeaderSize orderBy" id="fileListHeaderSize">| Size <i id="headerArrowSize" class="fa fa-arrow-down headerArrow"></i></td>
                     </tr>
                 </table>
                 <hr>
@@ -87,12 +87,12 @@
         </div>
 
         <ul class="custom-menu">
-            <li data-action="download"><i class="fa fa-download"></i> Download</li>
-            <li data-action="rename"><i class="fa fa-pencil"></i> Rename</li>
-            <li data-action="share"><i class="fa fa-share"></i> Share</li>
-            <li data-action="info"><i class="fa fa-info-circle"></i>&nbsp; Info</li>
+            <li data-action="download"><i class="fa fa-download myBlue"></i> Download</li>
+            <li data-action="rename"><i class="fa fa-pencil myBlue"></i> Rename</li>
+            <li data-action="share"><i class="fa fa-share myBlue"></i> Share</li>
+            <li data-action="info"><i class="fa fa-info-circle myBlue"></i>&nbsp; Info</li>
             <hr>
-            <li data-action="delete" class="red"><i class="fa fa-trash"></i> Delete</li>
+            <li data-action="delete" class="red"><i class="fa fa-trash red"></i> Delete</li>
 
 <!--            <li data-action="third">Third thing</li>-->
         </ul>
@@ -106,7 +106,7 @@
                     <div class="dropArea" id="dropArea">
                         <!--                            <input type="file" name="fileToUpload" id="fileToUpload" style="display: none">-->
                         <p class="hidden">:)</p>
-                        <i class="fa fa-arrow-circle-down bigIcon"></i>
+                        <i class="fa fa-arrow-circle-down bigIcon grey"></i>
                         <p id="notSelectedFileText"><b>Choose a file</b> or drag it here</p>
                         <p id="selectedFileText"><b>Selected:</b> <label id="filePath">Hej</label></p>
                     </div><br>

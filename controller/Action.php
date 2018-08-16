@@ -29,7 +29,7 @@ class Controller_Action extends Lib_Controller {
         } else if ($action == "rename") {
             $this->renameFile($_POST["fileId"], $_POST["fileName"]);
         } else if ($action == "sort") {
-            $this->sort($_POST["sortBy"]);
+            $this->sort($_POST["sortBy"], $_POST["direction"]);
         } else if ($action == "search") {
 //            header("Location: /home?search=" . $_POST["phrase"]);
             $this->search($_POST["phrase"]);
@@ -71,8 +71,8 @@ class Controller_Action extends Lib_Controller {
     }
 
 
-    function sort($sortBy) {
-        $files = Model_Home::getFiles($sortBy);
+    function sort($sortBy, $direction) {
+        $files = Model_Home::getFiles($sortBy, $direction);
         $this->data["files"] = $files;
 
         $this->echoFiles();

@@ -463,9 +463,9 @@ function search() {
             // console.log(1);
 
             if (phrase != "") {
-                history.pushState(null, null, "/home?search=" + phrase);
+                history.replaceState(null, null, "/home?search=" + phrase);
             } else {
-                history.pushState(null, null, "/home");
+                history.replaceState(null, null, "/home");
             }
 
             if (document.getElementById("refreshingList").innerHTML == "") {
@@ -477,10 +477,10 @@ function search() {
     // window.location.href = "/home?search=" + phrase;
 }
 
-function sortBy(what) {
+function sortBy(what, where) {
     document.getElementById("sortBy").value = what;
 
-    let data = {"action": "sort", "sortBy": what};
+    let data = {"action": "sort", "sortBy": what, "direction": where};
     $.post("/action", data,
         function(data){
             // console.log(data);
@@ -504,3 +504,91 @@ dropArea.ondrop = function(evt) {
 
     dropArea.style.backgroundColor = "#fefefe";
 };
+
+function hideArrows(show) {
+    document.getElementById("headerArrowName").style.display = "none";
+    document.getElementById("headerArrowOwner").style.display = "none";
+    document.getElementById("headerArrowUpload").style.display = "none";
+    document.getElementById("headerArrowDownload").style.display = "none";
+    document.getElementById("headerArrowSize").style.display = "none";
+
+    document.getElementById("headerArrow" + show).style.display = "block";
+}
+
+
+var titleDirection = "up";
+$("#fileListHeaderName").on("click", function () {
+    hideArrows("Name");
+
+    if (titleDirection == "down") {
+        titleDirection = "up";
+        $("#headerArrowName").addClass("up");
+    } else {
+        titleDirection = "down";
+        $("#headerArrowName").removeClass("up");
+    }
+
+    sortBy("title", titleDirection);
+});
+$("#fileListHeaderName").click();
+
+
+var ownerDirection = "up";
+$("#fileListHeaderOwner").on("click", function () {
+    hideArrows("Owner");
+
+    if (ownerDirection == "down") {
+        ownerDirection = "up";
+        $("#headerArrowOwner").addClass("up");
+    } else {
+        ownerDirection = "down";
+        $("#headerArrowOwner").removeClass("up");
+    }
+
+    sortBy("owner", ownerDirection);
+});
+
+var uploadDirection = "up";
+$("#fileListHeaderUpload").on("click", function () {
+    hideArrows("Upload");
+
+    if (uploadDirection == "down") {
+        uploadDirection = "up";
+        $("#headerArrowUpload").addClass("up");
+    } else {
+        uploadDirection = "down";
+        $("#headerArrowUpload").removeClass("up");
+    }
+
+    sortBy("upload_time", uploadDirection);
+});
+
+var downloadDirection = "down";
+$("#fileListHeaderDownload").on("click", function () {
+    hideArrows("Download");
+
+    if (downloadDirection == "down") {
+        downloadDirection = "up";
+        $("#headerArrowDownload").addClass("up");
+    } else {
+        downloadDirection = "down";
+        $("#headerArrowDownload").removeClass("up");
+    }
+
+    sortBy("download", downloadDirection);
+});
+
+var sizeDirection = "down";
+$("#fileListHeaderSize").on("click", function () {
+    hideArrows("Size");
+
+    if (sizeDirection == "down") {
+        sizeDirection = "up";
+        $("#headerArrowSize").addClass("up");
+    } else {
+        sizeDirection = "down";
+        $("#headerArrowSize").removeClass("up");
+    }
+
+    sortBy("size", sizeDirection);
+});

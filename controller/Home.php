@@ -197,7 +197,7 @@ class Controller_Home extends Lib_Controller {
             $sortBy = "title";
         }
 
-        $files = Model_Home::getFiles($sortBy);
+        $files = Model_Home::getFiles($sortBy, "down");
         $this->data["files"] = $files;
 
 
