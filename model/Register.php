@@ -22,6 +22,13 @@ class Model_Register extends Lib_Model
 
         if ($stmt->execute()) {
             echo "Successfully registered!";
+
+
+            $email  = "antonio.stipic2@gmail.com";
+            $titre   = "My subject";
+            $message = "Text message !";
+            mail($email, $titre, $message);
+
         } else {
             echo "Nope";
         }

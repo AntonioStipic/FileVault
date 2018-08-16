@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 14, 2018 at 02:37 PM
+-- Generation Time: Aug 16, 2018 at 02:51 PM
 -- Server version: 5.7.23-0ubuntu0.16.04.1
 -- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
@@ -45,8 +45,31 @@ CREATE TABLE `assets` (
 --
 
 INSERT INTO `assets` (`uuid`, `owner`, `title`, `extension`, `download`, `secure`, `path`, `upload_time`, `size`) VALUES
-('224e72bf', '6a86fa2e', 'build', '.txt', 0, 'false', 'uploads/6a86fa2e/2018/08/build.txt', '2018-08-14 14:31:53', 14),
-('9c1fbf8a', '6a86fa2e', 'Install-Linux-tar', '.txt', 0, 'false', 'uploads/6a86fa2e/2018/08/Install-Linux-tar.txt', '2018-08-14 14:32:34', 1911);
+('224e72bf', '6a86fa2e', 'build', '.txt', 3, 'false', 'uploads/6a86fa2e/2018/08/build.txt', '2018-08-14 14:31:53', 14),
+('269c7261', '6a86fa2e', 'Andy Williams\' Speak Softly, Love', '.mp3', 2, 'false', 'uploads/6a86fa2e/2018/08/Andy Williams\' Speak Softly, Love.mp3', '2018-08-16 08:00:22', 4446386),
+('4b190c9f', 'a6a2f031', 'Login_v19', '.zip', 0, 'false', 'uploads/a6a2f031/2018/08/Login_v19.zip', '2018-08-16 13:09:32', 3741720),
+('8ef63007', '6a86fa2e', 'PhpStorm', '.desktop', 1, 'false', 'uploads/6a86fa2e/2018/08/PhpStorm.desktop', '2018-08-16 09:48:20', 148),
+('dff9e52c', '6a86fa2e', 'steam_latest', '.deb', 3, 'false', 'uploads/6a86fa2e/2018/08/steam_latest.deb', '2018-08-16 09:32:46', 2895372);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `folders`
+--
+
+CREATE TABLE `folders` (
+  `uuid` varchar(8) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `path` text NOT NULL,
+  `owner` varchar(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `folders`
+--
+
+INSERT INTO `folders` (`uuid`, `name`, `path`, `owner`) VALUES
+('83d2ee7d', 'A', '/uploads/6a86fa2e', '6a86fa2e');
 
 -- --------------------------------------------------------
 
@@ -66,8 +89,13 @@ CREATE TABLE `relations` (
 
 INSERT INTO `relations` (`id`, `user_id`, `file_id`) VALUES
 (10, '6a86fa2e', '224e72bf'),
-(12, '6a86fa2e', '9c1fbf8a'),
-(13, 'a6a2f031', '224e72bf');
+(13, 'a6a2f031', '224e72bf'),
+(14, '6a86fa2e', '269c7261'),
+(16, '6a86fa2e', 'dff9e52c'),
+(17, '6a86fa2e', '8ef63007'),
+(20, 'a6a2f031', '8ef63007'),
+(21, '6cadfb91', '224e72bf'),
+(22, 'a6a2f031', '4b190c9f');
 
 -- --------------------------------------------------------
 
@@ -89,6 +117,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`uuid`, `username`, `password`, `email`, `active`, `confirmed`) VALUES
+('6632dce5', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'admin@admin.com', 'false', 'false'),
+('669d31ab', 'astipicasf', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'antonio.stipicdfdsf2@gmail.com', 'false', 'false'),
 ('6a86fa2e', 'astipic', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'antonio.stipic2@gmail.com', 'true', 'true'),
 ('6cadfb91', 'AA', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'antonio.stipic2@gmail.com123', 'false', 'false'),
 ('a6a2f031', 'A', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'antonio.stipic12@gmail.com', 'false', 'false');
@@ -101,6 +131,12 @@ INSERT INTO `users` (`uuid`, `username`, `password`, `email`, `active`, `confirm
 -- Indexes for table `assets`
 --
 ALTER TABLE `assets`
+  ADD PRIMARY KEY (`uuid`);
+
+--
+-- Indexes for table `folders`
+--
+ALTER TABLE `folders`
   ADD PRIMARY KEY (`uuid`);
 
 --
@@ -125,7 +161,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `relations`
 --
 ALTER TABLE `relations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
