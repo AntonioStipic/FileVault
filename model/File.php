@@ -10,6 +10,7 @@ class Model_File {
     protected $size;
     protected $owner;
     protected $uploadTime;
+    protected $public;
 
     function __construct($fileId) {
         $db = new DB_Connection();
@@ -30,6 +31,8 @@ class Model_File {
         $this->size = $this->formatSizeUnits($file["size"]);
         $this->owner = $file["owner"];
         $this->uploadTime = $file["upload_time"];
+        $this->public = $file["public"];
+
     }
 
     function deleteFile($fileId) {
@@ -38,11 +41,11 @@ class Model_File {
         $db = new DB_Connection();
         $conn = $db->conn;
 
-        $stmt = $conn->prepare("DELETE FROM assets WHERE uuid=?");
+        $stmt = $conn->prepare("DELETE FROM relations WHERE file_id=?");
 
         if ($stmt->execute([$fileId])) {
 
-           $stmt2 = $conn->prepare("DELETE FROM relations WHERE file_id=?");
+           $stmt2 = $conn->prepare("DELETE FROM assets WHERE uuid=?");
 
            if ($stmt2->execute([$fileId])) {
                $success = true;
@@ -165,6 +168,24 @@ class Model_File {
 
     }
 
+    function checkOwnership($fileId, $userUuid) {
+        $db = new DB_Connection();
+        $conn = $db->conn;
+
+        $stmtTmp = $conn->prepare("SELECT * FROM relations INNER JOIN assets ON relations.file_id=assets.uuid WHERE (user_id=? AND file_id=?)");
+        $stmtTmp->execute([$userUuid, $fileId]);
+
+        if ($stmtTmp->rowCount() == 1) {
+            $file = $stmtTmp->fetch();
+
+            $file["size"] = $this->formatSizeUnits($file["size"]);
+
+            return $file;
+        } else {
+            return "false";
+        }
+    }
+
     public function __get($property) {
         if (property_exists($this, $property)) {
             return $this->$property;
@@ -192,5 +213,24 @@ class Model_File {
         }
 
         return $bytes;
+    }
+
+
+    public function getPublicFile() {
+        $db = new DB_Connection();
+        $conn = $db->conn;
+        #echo "<br>";
+//        $stmt = $conn->prepare("SELECT * FROM assets WHERE owner=? ORDER BY " . $sortBy);
+
+        $stmt = $conn->prepare("SELECT * FROM assets WHERE uuid=?");
+        $stmt->execute([$this->uuid]);
+
+        $file = $stmt->fetch();
+
+        if ($file["public"] == "true") {
+            return $file;
+        } else {
+            return false;
+        }
     }
 }

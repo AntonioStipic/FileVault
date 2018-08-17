@@ -5,22 +5,24 @@ class Model_Home extends Lib_Model {
         parent::__construct();
     }
 
-    public function Test() {
-        echo "test";
-    }
-
     public function getUser() {
         $db = new DB_Connection();
         $conn = $db->conn;
 
         #echo "<br>";
-        $uuid = $_SESSION["user"];
-        $stmt = $conn->prepare("SELECT * FROM users WHERE uuid='$uuid'");
-        $stmt->execute();
+        if (isset($_SESSION["user"])) {
+            $uuid = $_SESSION["user"];
+            $stmt = $conn->prepare("SELECT * FROM users WHERE uuid='$uuid'");
+            $stmt->execute();
 
-        $user = $stmt->fetch();
+            $user = $stmt->fetch();
 
-        return $user;
+            return $user;
+        } else {
+            $user = "guest";
+
+            return $user;
+        }
     }
 
     public function getFiles($sortBy, $direction) {

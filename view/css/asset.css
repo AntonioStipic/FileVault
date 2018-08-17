@@ -1,0 +1,62 @@
+.fileDiv {
+    position: absolute;
+
+    border: 1px solid #002E4A;
+
+    width: 24%;
+    margin-left: 36%;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 7%;
+
+    background-color: #C2C2C2;
+
+    display: none;
+}
+
+.round {
+    border-radius: 8px;
+}
+
+.assetFileIcon {
+    font-size: 5em !important;
+    color: black;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+    margin-right: 30%;
+}
+
+.assetText {
+    margin: 15px;
+    display:block;
+}
+
+.hidden {
+    display: none;
+}
+
+.errorDiv {
+    display: none;
+
+    position: absolute;
+
+    border: 1px solid #002E4A;
+
+    width: 20%;
+    margin-left: 38%;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 10%;
+
+    background-color: #C2C2C2;
+}
+
+#errorMessage {
+    float: right;
+}

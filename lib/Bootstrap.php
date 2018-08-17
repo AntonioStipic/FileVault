@@ -24,6 +24,11 @@ class Lib_Bootstrap {
 
                     $controller = new Controller_Register();
                     return false;
+                } else if (strtolower($url[0]) == "asset") {
+                    require "controller/Asset.php";
+
+                    $controller = new Controller_Asset();
+                    return false;
                 } else if (strtolower($url[0]) != "login") {
                     header("Location: /login");
                 } else {

@@ -71,6 +71,14 @@
     height: 45px;
 }
 
+.selectedAsset {
+    background-color: #0066A2;
+}
+
+.selectedAsset:hover {
+    background-color: #0066A2;
+}
+
 /**/
 
 .homeHeaderButton {
@@ -331,4 +339,11 @@ hr {
 #greeting {
     margin-top: 12px !important;
     position: absolute;
+}
+
+#refreshingList {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 }

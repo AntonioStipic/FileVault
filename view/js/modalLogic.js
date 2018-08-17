@@ -258,6 +258,9 @@ $("#newFolderModalButton").on("click", function () {
 var currentlyRightClicked = "";
 var currentlyRightClickedName = "";
 
+var currentlyDoubleClicked = "";
+var currentlyDoubleClickedName = "";
+
 /* $(".asset").on("contextmenu", function (event) {
 
     currentlyRightClicked = $(this).find('.id').html();
@@ -449,6 +452,7 @@ function submitDeleteFile() {
 
     $.post("/action",data,
         function(data){
+        console.log(data);
             data = JSON.parse(data);
             if (data["success"] == true) {
                 deleteModal.style.display = "none";
@@ -618,4 +622,42 @@ $("#fileListHeaderSize").on("click", function () {
     }
 
     sortBy("size", sizeDirection);
+});
+
+
+$(document).on("dblclick", ".asset", function() {
+    console.log("Clicked asset");
+
+
+    currentlyDoubleClicked = $(this).find('.id').html();
+    currentlyDoubleClickedName = $(this).find('.fileListHeaderName').html();
+    currentlyDoubleClickedName = currentlyDoubleClickedName.substring(currentlyDoubleClickedName.indexOf("</i>") + 5);
+
+    console.log("clicked:", currentlyDoubleClickedName);
+
+    location.replace("/asset?id=" + currentlyDoubleClicked);
+});
+
+
+$(".asset").attr('unselectable','on')
+    .css({'-moz-user-select':'-moz-none',
+        '-moz-user-select':'none',
+        '-o-user-select':'none',
+        '-khtml-user-select':'none', /* you could also put this in a class */
+        '-webkit-user-select':'none',/* and add the CSS class here instead */
+        '-ms-user-select':'none',
+        'user-select':'none'
+}).bind('selectstart', function(){ return false; });
+
+
+$(document).on("click", ".asset", function(e) {
+    $(".asset").removeClass("selectedAsset");
+    $(this).addClass("selectedAsset");
+});
+
+
+$(document).click(function(e) {
+    if ( $(e.target).closest(".asset").length === 0 ) {
+        $(".asset").removeClass("selectedAsset");
+    }
 });
