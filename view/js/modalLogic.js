@@ -677,3 +677,12 @@ $(document).click(function(e) {
         $(".asset").removeClass("selectedAsset");
     }
 });
+
+$("#infoPublic").change(function() {
+    if(this.checked) {
+        $("#infoLinkLabel").css("display", "block");
+        $("#infoLink").val("test.loc/asset?id=" + currentlyRightClicked);
+    } else {
+        $("#infoLinkLabel").css("display", "none");
+    }
+});
