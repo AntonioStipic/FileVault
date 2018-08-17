@@ -121,6 +121,26 @@ class Model_File {
 
     }
 
+    public function updatePublic($fileId, $publicValue) {
+        $db = new DB_Connection();
+        $conn = $db->conn;
+
+        $stmt = $conn->prepare("UPDATE assets SET public=? WHERE uuid=?");
+
+        if ($publicValue == true) $publicValue = "true";
+        else $publicValue = "false";
+
+        if ($stmt->execute([$publicValue, $fileId])) {
+            $success = true;
+        } else {
+            $success = false;
+        }
+
+        $conn = null;
+
+        return $success;
+    }
+
     public function downloaded() {
 
         $db = new DB_Connection();

@@ -22,7 +22,7 @@
     </div>
 </div>
 <div class="container">
-    <div class="hidden" id="message"><?php echo $data["message"] ?></div>
+    <div class="hidden" id="message"><?php echo $data["message"]; ?></div>
     <div class="fileDiv" id="fileDiv">
         <table>
             <tr>
@@ -31,13 +31,14 @@
                     <label class="assetText" id="assetName"><b>Name:</b> <?php echo $data["file"]["title"] . $data["file"]["extension"] ?></label>
                     <label class="assetText" id="assetSize"><b>Size:</b> <?php echo $data["file"]["size"] ?></label>
                     <label class="assetText" id="assetSize"><b>Upload time:</b> <?php echo date("M jS, Y - H:i", strtotime($data["file"]["upload_time"])) ?></label>
+                    <label class="assetText" id="assetId"><b>ID:</b> <span id="fileId"><?php echo $data["file"]["uuid"] ?></span></label>
                 </td>
             </tr>
 
 
             <tr>
                 <td></td>
-                <td><button class="blueButton round right">Download</button></td>
+                <td><button class="blueButton round right" id="downloadButton">Download</button></td>
             </tr>
 
         </table>
@@ -61,6 +62,13 @@
 
     </table>
 </div>
+
+
+<form method="POST" style="display: none">
+    <input type="hidden" name="action" value="download">
+    <input type="hidden" name="fileId" id="downloadFileId">
+    <input type="submit" value="Download" name="download" id="downloadFileSubmit">
+</form>
 
 <script src="/view/js/assetLogic.js"></script>
 </body>

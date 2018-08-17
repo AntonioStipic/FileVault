@@ -2,7 +2,7 @@
 
 class Controller_Action extends Lib_Controller {
 
-    protected $actions = ["logout", "upload", "download", "delete", "rename", "sort", "search", "shareRecommed", "share", "fileInfo", "createFolder"];
+    protected $actions = ["logout", "upload", "download", "delete", "rename", "sort", "search", "shareRecommed", "share", "fileInfo", "createFolder", "updatePublic"];
 
     function __construct() {
         parent::__construct();
@@ -41,8 +41,20 @@ class Controller_Action extends Lib_Controller {
             $this->fileInfo($_POST["fileId"]);
         } else if ($action == "createFolder") {
             $this->createFolder($_POST["folderName"]);
+        } else if ($action == "updatePublic") {
+            $this->updatePublic($_POST["fileId"], $_POST["publicValue"]);
         }
 
+    }
+
+    function updatePublic($fileId, $publicValue) {
+        $file = new Model_File("");
+
+        if ($file->updatePublic($fileId, $publicValue)) {
+            echo "Works";
+        } else {
+            echo "not work";
+        }
     }
 
     function createFolder($folderName) {
@@ -64,6 +76,7 @@ class Controller_Action extends Lib_Controller {
         $size = $file->size;
         $owner = $file->owner;
         $uploadTime = $file->uploadTime;
+        $public = $file->public;
 
         $uploadTime = date("M jS, Y - H:i", strtotime($uploadTime));
 
@@ -78,7 +91,7 @@ class Controller_Action extends Lib_Controller {
 
         $users = json_encode($users);
 
-        echo "{\"uuid\": \"$uuid\", \"name\": \"$name\", \"download\": \"$download\", \"size\": \"$size\", \"owner\": \"$owner\", \"upload_time\": \"$uploadTime\", \"sharedTo\": $users}";
+        echo "{\"uuid\": \"$uuid\", \"name\": \"$name\", \"download\": \"$download\", \"size\": \"$size\", \"owner\": \"$owner\", \"upload_time\": \"$uploadTime\", \"sharedTo\": $users, \"public\": \"$public\"}";
 
     }
 

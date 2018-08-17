@@ -185,6 +185,16 @@ window.onclick = function(event) {
 
 $("#infoModalButton").on("click", function () {
     infoModal.style.display = "none";
+
+    let publicValue = document.getElementById("infoPublic").checked;
+
+    let data = {"action": "updatePublic", "fileId": currentlyRightClicked, "publicValue": publicValue};
+
+
+    $.post("/action",data,
+        function(data){
+            console.log(data);
+        });
 });
 
 $("#dropArea").click(function() {
@@ -422,6 +432,12 @@ function infoFile() {
             document.getElementById("infoSize").value = data["size"];
             document.getElementById("infoOwner").value = data["owner"];
             document.getElementById("infoUpload").value = data["upload_time"];
+
+            if (data["public"] == "true") {
+                document.getElementById("infoPublic").checked = true;
+            } else {
+                document.getElementById("infoPublic").checked = false;
+            }
 
             let textAreaValue = "";
             let userUuid = document.getElementById("userUuid").innerHTML;

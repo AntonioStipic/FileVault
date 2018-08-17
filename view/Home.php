@@ -170,6 +170,7 @@
                             <label for="field2"><span>Upload Time:</span><input type="text" class="input-field" id="infoUpload" disabled></label>
                             <label for="field2"><span>Downloaded:</span><input type="text" class="input-field" id="infoDownload" disabled></label>
                             <label for="field2"><span>Size:</span><input type="text" class="input-field" id="infoSize" disabled></label>
+                            <label for="field2"><span>Public:</span><input type="checkbox" id="infoPublic"></label>
 
                             <label for="field5"><span>Shared to:</span><textarea name="field5" class="textarea-field" id="infoShared" disabled></textarea></label>
 
