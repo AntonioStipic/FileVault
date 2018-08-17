@@ -72,11 +72,12 @@
 }
 
 .selectedAsset {
-    background-color: #0066A2;
+    background-color: #005283;
+    color: #DDEEFF;
 }
 
 .selectedAsset:hover {
-    background-color: #0066A2;
+    background-color: #005283;
 }
 
 /**/
